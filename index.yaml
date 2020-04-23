@@ -1,0 +1,5091 @@
+## --------------------
+## DON'T EDIT THIS FILE
+## --------------------
+## Engine: yamlinc@0.1.10
+## Source: index_multi.yaml
+
+openapi: 3.0.0
+info:
+  version: null
+  title: null
+  description: >
+    The NEOGOV REST API provides programmatic access to many common entities
+    used across our product suite. In order to use the interactive features in
+    this documentation:
+
+     * Use Authorize to authenticate
+     * Select Try it out
+     * Select Execute  
+     
+     For more information on the API and integration data flows, refer to the
+     [HRIS Integration and Programming Guide](../documentation/).
+     
+     ## Authorization
+
+    The API uses application user accounts for authentication. The user name and
+    password are passed in a request
+
+    header called Authorization. 
+
+
+    The following entities require a Perform account:
+     * Class Specification
+     * Department
+     * Division
+     * Employee
+     * Evaluation
+     * Position
+     * User 
+
+    The following entities require an Insight account:
+
+     * Application Information
+     * Job Posting
+     * Master Profile
+     * Personnel Action
+     * Position Control
+     * Requisition
+
+        
+     &#169; 2020 NEOGOV. All Rights Reserved.
+  contact:
+    name: NEOGOV
+    email: support@neogov.net
+    url: 'https://www.neogov.com/'
+servers:
+  - url: 'https://api.qa.neogov.net/rest'
+    description: QA server
+  - url: 'https://api.staging.neogov.net/rest'
+    description: Staging
+  - url: 'https://api.uat.neogov.net/rest'
+    description: UAT
+  - url: 'https://api.neogov.com/rest'
+    description: Production
+externalDocs:
+  description: HRIS Integration and Programming Guide
+  url: ../documentation/
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: >
+        The API uses application user accounts for authentication. The user name
+        and password are passed in a request
+
+        header called Authorization. 
+  parameters:
+    maxPage:
+      name: perpage
+      in: query
+      description: >-
+        Number of records to retrieve. Default is 10. Must combine with
+        `pagenumber` parameter. For example, `?perpage=5&pagenumber=2` returns
+        five records starting with the second record.
+      schema:
+        type: integer
+        format: int32
+        example: 10
+        default: 10
+    pageNumber:
+      name: pagenumber
+      in: query
+      description: >-
+        First record to retrieve. Default is 1. Must combine with `perpage`
+        parameter.
+      schema:
+        type: integer
+        format: int32
+        example: 1
+        default: 1
+    Top:
+      name: $top
+      in: query
+      description: Number of records to retrieve. Default is 10.
+      schema:
+        type: integer
+        format: int32
+    Skip:
+      name: $skip
+      in: query
+      description: First record to retrieve. Default is 1.
+      schema:
+        type: integer
+        format: int32
+  schemas:
+    ApplicationInformation:
+      type: object
+      xml:
+        name: application
+      properties:
+        applicationfinfo:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 6751b43c1cbe06deeb088f79f4a8c8507d27c321c5b20486
+              description: ID of application
+            url:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/applications/6751b43c1cbe06deeb088f79f4a8c8507d27c321c5b20486
+              description: URL of application
+            firstname:
+              type: string
+              maxLength: 50
+              example: Mary
+              description: First name
+            middlename:
+              type: string
+              maxLength: 50
+              example: C
+              description: Middle name
+            lastname:
+              type: string
+              maxLength: 50
+              example: Smith
+              description: Last name
+            email:
+              type: string
+              maxLength: 50
+              example: jsmith@mytown.gov
+              description: Email address
+            address1:
+              type: string
+              maxLength: 200
+              example: 921 Spring St
+              description: Address (street name and number)
+            address2:
+              type: string
+              maxLength: 200
+              example: Unit 543
+              description: Additional address information
+            city:
+              type: string
+              maxLength: 200
+              example: Boston
+              description: City portion of address
+            state:
+              type: string
+              maxLength: 2
+              example: MA
+              description: State code portion of address
+            zip:
+              type: integer
+              maxLength: 10
+              example: 98765
+              description: Zip code portion of address
+            legalwork:
+              type: string
+              enum:
+                - true
+                - false
+              example: true
+              description: Legal work status
+            objective:
+              type: string
+              maxLength: 50
+              example: Senior account manager in three years
+              description: Career objective
+            minsalaryyr:
+              description: Minimum salary per year
+              type: number
+              format: float
+              example: 50000
+            minsalaryhr:
+              description: Minimum salary per hour
+              type: number
+              format: float
+              example: 35
+            formerlastname:
+              type: string
+              maxLength: 200
+              example: Jones
+              description: Former last name
+            birthmonthday:
+              type: string
+              example: 22
+              description: Day of month of birthday
+            paperapplied:
+              type: boolean
+              example: 'No'
+              description: 'Applied by paper (hardcopy). Yes or No, 1 or 0'
+            highesteducation:
+              type: string
+              example: Bachelor's Degree
+              description: Highest educational degree
+            drivlicensestate:
+              type: string
+              example: MD
+              description: State where drivers license is held
+            jobpostingurl:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/jobpostings/37e407f29e099ee47cd91a5622fbd73d
+              description: URL to job posting
+            classification:
+              type: string
+              example: 0000CFCODE
+              description: Job classification code
+            positiondetails:
+              type: object
+              properties:
+                positiontypes:
+                  type: object
+        educationhistory:
+          type: object
+          properties:
+            schoolname:
+              type: string
+              example: University of California Davis
+              description: School name
+            schoolurl:
+              type: string
+              example: 'https://www.ucdavis.edu/'
+              description: URL to school
+            city:
+              type: string
+              example: Davis
+              description: City of school
+            startyear:
+              type: string
+              example: 2010
+              description: Start year for school
+            startmonth:
+              type: string
+              example: September
+              description: Start month for school
+            endyear:
+              type: string
+              example: 2014
+              description: End year for school
+            endmonth:
+              type: string
+              example: June
+              description: End month for school
+            graduate:
+              type: string
+              enum:
+                - true
+                - false
+              example: true
+              description: Graduation status
+            major:
+              type: string
+              example: Master of Science in Business Analytics
+              description: Major
+            unitscompleted:
+              type: string
+              example: 72
+              description: Units completed
+            semesterunits:
+              type: string
+              example: 21
+              description: Semester units completed
+            ged:
+              type: string
+              enum:
+                - true
+                - false
+              example: false
+              description: GED status
+            state:
+              type: string
+              maxLength: 2
+              example: CA
+              description: State code for schoool
+            degree:
+              type: string
+              example: Master of Science in Business Analytics
+              description: Degree
+            schooltype:
+              type: string
+              example: Graduate
+              description: Type of school
+        workhistory:
+          type: object
+          properties:
+            companyname:
+              type: string
+              example: Level60 Consulting
+              description: Company name
+            companyurl:
+              type: string
+              example: 'https://level60consulting.com/'
+              description: URL to company
+            address:
+              type: string
+              maxLength: 200
+              example: 921 Spring St
+              description: Address (street name and number)
+            city:
+              type: string
+              maxLength: 200
+              example: Boston
+              description: City portion of address
+            state:
+              type: string
+              maxLength: 2
+              example: MA
+              description: State code portion of address
+            zip:
+              type: integer
+              maxLength: 10
+              example: 98765
+              description: Zip code portion of address
+            startyear:
+              type: string
+              example: 2010
+              description: Start year for company
+            startmonth:
+              type: string
+              example: September
+              description: Start month for company
+            endyear:
+              type: string
+              example: 2014
+              description: End year for company
+            endmonth:
+              type: string
+              example: June
+              description: End month for school
+            positiontitle:
+              type: string
+              maxLength: 100
+              example: Senior Analyst
+              description: Title of position
+            weeklyhours:
+              type: string
+              example: 40
+              description: Hours per week
+            monthlysalary:
+              description: Salary per month
+              type: number
+              format: float
+              example: 6000
+            supervisorname:
+              type: string
+              example: Jane Martins
+              description: Name of supervisor
+            supervisortitle:
+              type: string
+              example: Director of Operations
+              description: Supervisor title
+            contactemployer:
+              type: string
+              enum:
+                - true
+                - false
+              example: false
+              description: Contract employee status
+            duties:
+              type: string
+              example: >-
+                Provides strategic business analysis services to business
+                partners.
+              description: Duties
+        skills:
+          type: object
+          properties:
+            skillname:
+              type: string
+              example: Administering payrolls and controlling income and expenditure
+              description: Skill name
+            yearsofexperience:
+              type: integer
+              example: 5
+              description: Years of experience
+            monthexperience:
+              type: integer
+              example: 5
+              description: Years of experience
+            skilllevel:
+              type: string
+              example: Intermediate
+              description: Skill level
+        languageskills:
+          type: object
+          properties:
+            language:
+              type: string
+              example: Spanish
+              description: Language name
+            canspeak:
+              type: string
+              enum:
+                - true
+                - false
+              example: true
+              description: Can you speak language
+            canread:
+              type: string
+              enum:
+                - true
+                - false
+              example: true
+              description: Can you read language
+            canwrite:
+              type: string
+              enum:
+                - true
+                - false
+              example: true
+              description: Can you write language
+        officeskills:
+          type: object
+          properties:
+            typing:
+              type: string
+            dataentrycustomformfields:
+              type: string
+    ApplicationListResponse:
+      type: object
+      properties:
+        odata.metadata:
+          type: string
+          example: >-
+            https://api.neogov.com/WebAPI/$metadata#MasterProfiles/Neogov.Insight.Business.Models.MasterProfileSearchResultOut
+        value:
+          type: array
+          items:
+            type: object
+            properties:
+              odata.type:
+                type: string
+                example: Neogov.Insight.Business.Models.MasterProfileSearchResultOut
+              FirstName:
+                type: string
+                example: Mary
+                description: First name
+              MiddleName:
+                description: Middle name
+                type: string
+                example: Pauline
+              LastName:
+                type: string
+                example: Smith
+                description: Last name
+              PersonId:
+                type: string
+                example: 1165361
+                description: Person ID
+              SSN:
+                type: integer
+                example: 034865333
+                description: Social security number
+              ApplicationId:
+                type: string
+                example: 1696742
+                description: Application ID
+              ExamType:
+                type: string
+                example: Open
+                description: Examination type
+    ClassSpecification:
+      type: object
+      xml:
+        name: classspecification
+      properties:
+        classcode:
+          description: Unique alpha-numeric code to uniquely identify the class spec
+          type: string
+          maxLength: 50
+          example: 652
+        classtitle:
+          description: Title of class spec
+          type: string
+          maxLength: 300
+          example: ACCOUNTANT I
+        classconcept:
+          description: Description of class spec
+          type: string
+          example: >-
+            Junior to mid-level systems administrator and network support
+            personnel required to provide support of both in-house and customer
+            issues.
+        bargainingunitcode:
+          description: Bargaining unit code
+          type: string
+          maxLength: 300
+          example: 1
+        billablehours:
+          description: Billable hours
+          type: string
+          example: 2080
+        salarypaidcode:
+          description: Salary paid code
+          type: string
+          example: Hour
+        status:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - true
+            - false
+            - 1
+            - 0
+          example: Active
+          description: Whether the class spec is active
+        jobinterestcards:
+          description: >-
+            Active to use Job interest cards. When a job posting is created for
+            this class spec, current interest card submitters are sent an
+            automated email from NEOGOV notifying them of the recently opened
+            job posting.
+          type: boolean
+          example: Active
+        examplesofduties:
+          description: Description of duties
+          type: string
+          example: >-
+            Hardware and system performance benchmarking. Customer support.
+            Involves investigating and communicating with customers on technical
+            issues.
+        minimumqualifications:
+          description: Minimum qualifications
+          type: string
+          example: Bachelor's degree from an accredited institution in accounting.
+        supplementalinfo:
+          description: Supplemental information
+          type: string
+          example: Apply advanced accounting principles and procedures
+        flsa:
+          description: 'Fair Labor Standards Act status, 0 for Non-Exempt, 1 for Exempt'
+          type: boolean
+          example: 0
+        notes:
+          description: >-
+            Internal notes that do not display in the job description or job
+            posting pages, but are available     for reporting purposes.
+          type: string
+          example: One step below level III
+        otherrequirements:
+          description: Other requirements or information
+          type: string
+          example: Lead or supervisory experience is desireable.
+        topstep:
+          description: Top step
+          type: string
+          maxLength: 50
+        stepatentry:
+          description: Step at entry
+          type: string
+          maxLength: 50
+        salarymin:
+          description: Minimum salary
+          type: number
+          format: float
+          example: 50000
+        salarymax:
+          description: Maximum salary
+          type: number
+          format: float
+          example: 80000
+        nonstdrate:
+          description: Non-standard rate
+          type: number
+          format: float
+          maxLength: 50
+        rangeofsalary:
+          description: Salary range
+          type: string
+        isnonstandard:
+          description: 1 for non-standard
+          type: boolean
+          example: 1
+        othertitle1:
+          description: Extended or additional title
+          type: string
+          example: Assistant to VP
+        othertitle2:
+          description: Extended or additional title
+          type: string
+        classformula:
+          description: Class formula
+          type: string
+          maxLength: 500
+        showsalaryhourly:
+          description: Active to show compensation as hourly salary
+          type: boolean
+          example: Active
+        showsalarydaily:
+          description: Active to show compensation as daily salary
+          type: boolean
+          example: Active
+        showsalarybiweekly:
+          description: Active to show compensation as bi-weekly salary
+          type: boolean
+          example: Active
+        showsalaryweekly:
+          description: Active to show compensation as weekly salary
+          type: boolean
+          example: Active
+        showsalarysemimonthly:
+          description: Active to show compensation as semi-monthly salary
+          type: boolean
+          example: Active
+        showsalaryannually:
+          description: Active to show compensation as annual salary
+          type: boolean
+          example: Active
+        customformfields:
+          type: object
+          description: Custom fields
+          properties:
+            singlevaluecustomfields:
+              type: object
+            multivaluecustomfields:
+              type: object
+        eeocode:
+          description: EEO code
+          type: String
+          example: 1
+        physicalclasscode:
+          description: Physical class code
+          type: String
+          example: PC1890
+        ocgroupcode:
+          description: Occupational group code
+          type: String
+          example: ADM
+      required:
+        - classcode
+        - classtitle
+        - bargainingunitcode
+        - billablehours
+        - salarypaidcode
+        - jobinterestcards
+        - status
+    ClassSpecificationUpdateMin:
+      type: object
+      xml:
+        name: classspecification
+      properties:
+        classcode:
+          description: Unique alpha-numeric code to uniquely identify the class spec
+          type: string
+          maxLength: 50
+          example: 652
+        classtitle:
+          description: Title of class spec
+          type: string
+          maxLength: 300
+          example: ACCOUNTANT I
+      required:
+        - classcode
+        - classtitle
+    ClassSpecificationResponse:
+      type: object
+      xml:
+        name: classspecification
+      properties:
+        id:
+          type: string
+          example: 348a9e3e26a6aa7d97577853387a1fa4
+          description: ID of class spec
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/classspecifications/348a9e3e26a6aa7d97577853387a1fa4
+          description: URL of class spec
+        eeoid:
+          type: string
+          example: 79d61c8e1641251b
+          description: Equal Employment Opportunity ID
+        status:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - true
+            - false
+            - 1
+            - 0
+          example: Active
+          description: Whether the class spec is active
+        classcode:
+          description: Unique alpha-numeric code to uniquely identify the class spec
+          type: string
+          maxLength: 50
+          example: 652
+        classtitle:
+          description: Title of class spec
+          type: string
+          maxLength: 300
+          example: ACCOUNTANT I
+        classconcept:
+          description: Description of class spec
+          type: string
+          example: >-
+            Junior to mid-level systems administrator and network support
+            personnel required to provide support of both in-house and customer
+            issues.
+        bargainingunitcode:
+          description: Bargaining unit code
+          type: string
+          maxLength: 300
+          example: 1
+        billablehours:
+          description: Billable hours
+          type: string
+          example: 2080
+        salarypaidcode:
+          description: Salary paid code
+          type: string
+          example: Hour
+        jobinterestcards:
+          description: >-
+            Active to use Job interest cards. When a job posting is created for
+            this class spec, current interest card submitters are sent an
+            automated email from NEOGOV notifying them of the recently opened
+            job posting.
+          type: boolean
+          example: Active
+        examplesofduties:
+          description: Description of duties
+          type: string
+          example: >-
+            Hardware and system performance benchmarking. Customer support.
+            Involves investigating and communicating with customers on technical
+            issues.
+        minimumqualifications:
+          description: Minimum qualifications
+          type: string
+          example: Bachelor's degree from an accredited institution in accounting.
+        supplementalinfo:
+          description: Supplemental information
+          type: string
+          example: Apply advanced accounting principles and procedures
+        flsa:
+          description: 'Fair Labor Standards Act status, 0 for Non-Exempt, 1 for Exempt'
+          type: boolean
+          example: 0
+        notes:
+          description: >-
+            Internal notes that do not display in the job description or job
+            posting pages, but are available     for reporting purposes.
+          type: string
+          example: One step below level III
+        otherrequirements:
+          description: Other requirements or information
+          type: string
+          example: Lead or supervisory experience is desireable.
+        topstep:
+          description: Top step
+          type: string
+          maxLength: 50
+        stepatentry:
+          description: Step at entry
+          type: string
+          maxLength: 50
+        salarymin:
+          description: Minimum salary
+          type: number
+          format: float
+          example: 50000
+        salarymax:
+          description: Maximum salary
+          type: number
+          format: float
+          example: 80000
+        nonstdrate:
+          description: Non-standard rate
+          type: number
+          format: float
+          maxLength: 50
+        rangeofsalary:
+          description: Salary range
+          type: string
+        isnonstandard:
+          description: 1 for non-standard
+          type: boolean
+          example: 1
+        othertitle1:
+          description: Extended or additional title
+          type: string
+          example: Assistant to VP
+        othertitle2:
+          description: Extended or additional title
+          type: string
+        classformula:
+          description: Class formula
+          type: string
+          maxLength: 500
+        showsalaryhourly:
+          description: Active to show compensation as hourly salary
+          type: boolean
+          example: Active
+        showsalarydaily:
+          description: Active to show compensation as daily salary
+          type: boolean
+          example: Active
+        showsalarybiweekly:
+          description: Active to show compensation as bi-weekly salary
+          type: boolean
+          example: Active
+        showsalaryweekly:
+          description: Active to show compensation as weekly salary
+          type: boolean
+          example: Active
+        showsalarysemimonthly:
+          description: Active to show compensation as semi-monthly salary
+          type: boolean
+          example: Active
+        showsalaryannually:
+          description: Active to show compensation as annual salary
+          type: boolean
+          example: Active
+        customformfields:
+          type: object
+          description: Custom fields
+          properties:
+            singlevaluecustomfields:
+              type: object
+            multivaluecustomfields:
+              type: object
+        eeocode:
+          description: EEO code
+          type: string
+          example: 1
+        physicalclasscode:
+          description: Physical class code
+          type: string
+          example: PC1890
+        ocgroupcode:
+          description: Occupational group code
+          type: string
+          example: ADM
+    Cloud Object:
+      type: object
+    Department:
+      type: object
+      xml:
+        name: department
+      properties:
+        code:
+          description: Unique alpha-numeric code for department
+          type: string
+          example: FIN
+        name:
+          type: string
+          example: Finance
+          description: Name of department
+        status:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - true
+            - false
+            - 1
+            - 0
+          example: Active
+          description: Whether the department is active
+      required:
+        - code
+        - name
+        - status
+    DepartmentResponse:
+      type: object
+      xml:
+        name: department
+      properties:
+        id:
+          type: string
+          example: 8f774b941635facee4d00ed0ae412cfc
+          description: ID of department
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/departments/aca66f651a3a3255255ff4232874b5b0
+          description: URL of department
+        code:
+          description: Unique alpha-numeric code for department
+          type: string
+          example: FIN
+        name:
+          type: string
+          example: Finance
+          description: Name of department
+        status:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - true
+            - false
+            - 1
+            - 0
+          example: Active
+    DepartmentListResponse:
+      type: array
+      items:
+        type: object
+        xml:
+          name: department
+        properties:
+          id:
+            type: string
+            example: 8f774b941635facee4d00ed0ae412cfc
+            description: ID of department
+          url:
+            type: string
+            example: >-
+              https://api.neogov.com/rest/departments/aca66f651a3a3255255ff4232874b5b0
+            description: URL of department
+          code:
+            description: Unique alpha-numeric code for department
+            type: string
+            example: FIN
+          name:
+            type: string
+            example: Finance
+            description: Name of department
+          status:
+            type: string
+            enum:
+              - Active
+              - Inactive
+              - true
+              - false
+              - 1
+              - 0
+            example: Active
+            description: Whether the department is active
+    Division:
+      type: object
+      xml:
+        name: division
+      properties:
+        code:
+          description: Unique alpha-numeric code for division
+          type: string
+          example: ACT
+        name:
+          type: string
+          example: Accounting
+          description: Name of division
+        status:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - true
+            - false
+            - 1
+            - 0
+          example: Active
+          description: Whether the division is active
+        departmentcode:
+          type: string
+          example: FIN
+          description: Department ID where this division is a member
+        departmentname:
+          type: string
+          example: Finance
+          description: Department name where this division is a member
+      required:
+        - code
+        - name
+        - status
+        - departmentcode
+        - departmentname
+    DivisionResponse:
+      type: object
+      xml:
+        name: division
+      properties:
+        id:
+          type: string
+          example: 9c4d9865dfbef25d03557138f349a498
+          description: ID of division
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/divisions/9c4d9865dfbef25d03557138f349a498
+          description: URL of division
+        code:
+          description: Unique alpha-numeric code for division
+          type: string
+          example: ACT
+        name:
+          type: string
+          example: Accounting
+          description: Name of division
+        status:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - true
+            - false
+            - 1
+            - 0
+          example: Active
+          description: Whether the division is active
+        departmentcode:
+          type: string
+          example: FIN
+          description: Department ID where this division is a member
+        departmentname:
+          type: string
+          example: Finance
+          description: Department name where this division is a member
+    DivisionListResponse:
+      type: array
+      items:
+        type: object
+        xml:
+          name: division
+        properties:
+          id:
+            type: string
+            example: 9c4d9865dfbef25d03557138f349a498
+            description: ID of division
+          url:
+            type: string
+            example: >-
+              https://api.neogov.com/rest/divisions/9c4d9865dfbef25d03557138f349a498
+            description: URL of division
+          code:
+            description: Unique alpha-numeric code for division
+            type: string
+            example: ACT
+          name:
+            type: string
+            example: Accounting
+            description: Name of division
+          status:
+            type: string
+            enum:
+              - Active
+              - Inactive
+              - true
+              - false
+              - 1
+              - 0
+            example: Active
+            description: Whether the division is active
+          departmentcode:
+            type: string
+            example: FIN
+            description: Department ID where this division is a member
+          departmentname:
+            type: string
+            example: Finance
+            description: Department name where this division is a member
+    EmployeePayload:
+      type: object
+      xml:
+        name: employee
+      properties:
+        employeenumber:
+          description: Unique alpha-numeric code for employee
+          type: string
+          maxLength: 100
+          example: 652012
+        firstname:
+          type: string
+          maxLength: 50
+          example: Mary
+          description: First name
+        lastname:
+          type: string
+          maxLength: 50
+          example: Jones
+          description: Last name
+        email:
+          type: string
+          maxLength: 50
+          example: jsmith@mytown.gov
+          description: Email address
+        evaluationcycledate:
+          type: string
+          format: date-time
+          example: '9/8/2004 12:00:00'
+          description: Start date of employee. UTC with optional timezone offset.
+        positioncode:
+          type: string
+          maxLength: 50
+          example: TY98E
+          description: Position code
+        positiontitle:
+          type: string
+          maxLength: 100
+          example: Accountant III
+          description: Position title
+        departmentcode:
+          type: string
+          maxLength: 50
+          example: 30012751
+          description: Code for existing department where employee is a member
+        departmentname:
+          type: string
+          maxLength: 50
+          example: Finance
+          description: Name of existing department where employee is a member
+        divisionname:
+          type: string
+          maxLength: 100
+          example: MHD
+          description: >-
+            Name of existing division where employee is a member. If the
+            position is associated with a division, this is required.
+        divisioncode:
+          type: string
+          maxLength: 50
+          example: 30012751
+          description: >-
+            Code of existing division where employee is a member. If the
+            position is associated with a division, this is required.
+        classspecificationcode:
+          type: string
+          maxLength: 50
+          example: 295L
+          description: Class spec code
+        classspecificationname:
+          type: string
+          maxLength: 300
+          example: 'PHARMACIST, CLINICAL'
+          description: Class spec code
+        directmanagerfirstname:
+          type: string
+          example: Sally
+          description: First name of direct manager
+        directmanagerlastname:
+          type: string
+          example: Smith
+          description: Last name of direct manager
+        directmanagernumber:
+          type: string
+          example: 113375
+          description: Employee ID of direct manager
+        hiredate:
+          type: string
+          format: date-time
+          example: '1/10/2011 10:03:49 PM'
+          description: >-
+            Date on which the employee is hired. This must be equal to or before
+            the evaluationcycledate.
+        address1:
+          type: string
+          maxLength: 200
+          example: 921 Spring St
+          description: Address (street name and number)
+        address2:
+          type: string
+          maxLength: 200
+          example: Unit 342
+          description: Additional address information
+        separationdate:
+          type: string
+          format: date-time
+          example: '10/18/2004 5:00:00'
+          description: Date of seperation. UTC with optional timezone offset.
+        city:
+          type: string
+          maxLength: 200
+          example: Boston
+          description: City portion of address
+        state:
+          type: string
+          maxLength: 2
+          example: MA
+          description: State code portion of address
+        zipcode:
+          type: integer
+          maxLength: 10
+          example: 98765
+          description: Zip code portion of address
+        phone:
+          type: string
+          example: 6507963286
+          description: Phone number
+        active:
+          type: string
+          enum:
+            - true
+            - false
+            - 1
+            - 0
+          example: true
+          description: Whether the employee status is active
+      required:
+        - employeenumber
+        - firstname
+        - lastname
+        - email
+        - evaluationcycledate
+        - positioncode
+        - positiontitle
+        - departmentname
+        - departmentcode
+    EmployeeResponse:
+      type: object
+      xml:
+        name: employee
+      properties:
+        id:
+          type: string
+          example: 33abfe4554e91341e90fc27259025e43
+          description: ID of employee
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/employees/33abfe4554e91341e90fc27259025e43
+          description: URL of  employee
+        active:
+          type: string
+          enum:
+            - true
+            - false
+            - 1
+            - 0
+          example: true
+          description: Whether the employee status is active
+        firstname:
+          type: string
+          maxLength: 50
+          example: Mary
+          description: First name
+        lastname:
+          type: string
+          maxLength: 50
+          example: Jones
+          description: Last name
+        employeenumber:
+          description: Unique alpha-numeric code for employee
+          type: string
+          maxLength: 100
+          example: 652012
+        email:
+          type: string
+          maxLength: 50
+          example: jsmith@mytown.gov
+          description: Email address
+        createddate:
+          type: string
+          format: date-time
+          example: '4/27/2017 8:04:11 PM'
+          description: Creation date
+        evaluationcycledate:
+          type: string
+          format: date-time
+          example: '9/8/2004 12:00:00 AM'
+          description: Start date of employee. UTC with optional timezone offset.
+        hiredate:
+          type: string
+          format: date-time
+          example: '1/10/2011 10:03:49 PM'
+          description: Date on which the employee is hired
+        updateddate:
+          type: string
+          format: date-time
+          example: '2/6/2018 6:59:49 PM'
+          description: Last updated date
+        separationdate:
+          type: string
+          format: date-time
+          example: '2/6/2018 6:59:49 PM'
+          description: Seperation date
+        address1:
+          type: string
+          maxLength: 200
+          example: 921 Spring St
+          description: Address (street name and number)
+        address2:
+          type: string
+          maxLength: 200
+          example: W27-19
+          description: Additional address information
+        city:
+          type: string
+          maxLength: 200
+          example: Boston
+          description: City portion of address
+        state:
+          type: string
+          maxLength: 2
+          example: MA
+          description: State code portion of address
+        zipcode:
+          type: integer
+          maxLength: 10
+          example: 98765
+          description: Zip code portion of address
+        phone:
+          type: string
+          example: 6507963286
+          description: Phone number
+        employeephotourl:
+          type: string
+          example: 'https://performance.neogov.com/images/silhouette50.jpg'
+          description: URL to photo
+        user:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 94d3255ce78489367cb1e49041f8d852
+              description: ID of user
+            url:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/users/94d3255ce78489367cb1e49041f8d852
+              description: URL of user
+            username:
+              type: string
+              example: janesmith@townhall.gov
+              description: Username of user
+            activeuser:
+              type: string
+              example: true
+              description: Whether the user is active
+              enum:
+                - true
+                - false
+            onlineStatus:
+              type: string
+              description: Online status
+              example: Activated
+        directmanager:
+          type: object
+          properties:
+            fullname:
+              type: string
+              example: Jane Smith
+              description: Name of manager
+            id:
+              type: string
+              example: 5a303aec3333861e815458f1d397aa29
+              description: ID of manager
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/employees/5a303aec3333861e815458f1d397aa29
+        position:
+          type: object
+          properties:
+            fullname:
+              type: string
+              example: Accountant III
+              description: Name of position
+            id:
+              type: string
+              example: 4b509002a5a80dfe1dca82e9ab08efc1
+              description: ID of position
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/position/4b509002a5a80dfe1dca82e9ab08efc1
+              description: URI of position
+        department:
+          type: object
+          properties:
+            fullname:
+              type: string
+              example: Finance
+              description: Name of department
+            id:
+              type: string
+              example: 9387510954cc5b29fb0562113e8b1825
+              description: ID of department
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/departments/9387510954cc5b29fb0562113e8b1825
+              description: URI of department
+        division:
+          type: object
+          properties:
+            fullname:
+              type: string
+              example: Payroll
+              description: Name of division
+            id:
+              type: string
+              example: c59dc8ef6303039bc67db06037bf1cdf
+              description: ID of division
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/divisions/c59dc8ef6303039bc67db06037bf1cdf
+              description: URI of division
+        classspecification:
+          type: object
+          properties:
+            fullname:
+              type: string
+              example: Accountant II
+              description: Name of class spec
+            id:
+              type: string
+              example: 7399c60a1f63dee4f82e141f9fa5e12f
+              description: ID of class spec
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/classspecifications/7399c60a1f63dee4f82e141f9fa5e12f
+              description: URI of class spec
+    EmployeeUpdateResponse:
+      type: object
+      xml:
+        name: employee
+      properties:
+        id:
+          type: string
+          example: f3e2c5a8abb1c28c05a54677ed97a29b
+          description: ID of employee
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/employees/f3e2c5a8abb1c28c05a54677ed97a29b
+          description: URL of employee
+    EmployeeStatusUpdate:
+      type: object
+      xml:
+        name: employee
+      properties:
+        active:
+          type: string
+          example: 'True'
+          description: Whether the employee is active
+          enum:
+            - 'True'
+            - 'False'
+        cancelevaluations:
+          type: string
+          example: 'False'
+          description: Use True to set status of evaluations of employee to Cancelled
+          enum:
+            - 'True'
+            - 'False'
+    EmployeeStatusUpdateResponse:
+      type: object
+      xml:
+        name: employee
+      properties:
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/employees/f3e2c5a8abb1c28c05a54677ed97a29b
+          description: URL of employee
+        id:
+          type: string
+          example: f3e2c5a8abb1c28c05a54677ed97a29b
+          description: ID of employee
+        active:
+          type: string
+          example: 'True'
+          description: Whether the employee is active
+          enum:
+            - 'True'
+            - 'False'
+        canceledevaluations:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                description: URL of cancelled evaluation
+                example: >-
+                  https://api.neogov.com/rest/evaluations/8f774b941635facee4d00ed0ae412cfc
+              id:
+                type: string
+                example: 8f774b941635facee4d00ed0ae412cfc
+                description: ID of cancelled evaluation
+    Evaluation:
+      type: object
+      xml:
+        name: employeeevaluation
+      properties:
+        id:
+          type: string
+          example: 8f774b941635facee4d00ed0ae412cfc
+          description: ID of evaluation
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/evaluations/8f774b941635facee4d00ed0ae412cfc
+          description: URL of evaluation
+        name:
+          type: string
+          example: Annual review
+          description: Name of evaluation
+        type:
+          type: string
+          example: Periodic
+          description: Type of evaluation
+        description:
+          type: string
+          example: Annual performance review for John Smith
+          description: Description of evaluation
+        dueDate:
+          type: string
+          format: date-time
+          example: 03/24/2018
+          description: Due date of evaluation
+        showNumericScoring:
+          type: boolean
+          example: true
+          description: Whether to show numeric scoring
+        showOverallRating:
+          type: boolean
+          example: true
+          description: Whether to show the overall rating
+        status:
+          type: string
+          example: Completed
+          description: Status
+        score:
+          type: object
+          properties:
+            numeric:
+              type: object
+              properties:
+                actual:
+                  type: string
+                  example: 3
+                maximumPossible:
+                  type: integer
+                  example: 100
+                percentage:
+                  type: integer
+                  example: 75
+            rating:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: Annual review
+                value:
+                  type: integer
+                  example: 4
+        settings:
+          type: object
+          properties:
+            numericScoring:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: true
+                showActual:
+                  type: boolean
+                  example: true
+                  description: Whether to show actual score
+                showMaximum:
+                  type: boolean
+                  example: true
+                  description: Whether to show maximum score
+                showPercentage:
+                  type: boolean
+                  example: true
+                  description: Whether to show percentage score
+            overallRating:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: true
+                  description: Whether overll rating is enabled
+                ratingScale:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 8
+                    name:
+                      type: string
+                      description: Name of rating scale
+                      example: ATMN RATING SCALEKey10648
+                showText:
+                  type: boolean
+                  example: true
+                  description: Whether overall rating text is shown
+                showValue:
+                  type: boolean
+                  example: true
+                  description: Whether overall rating value is shown
+        employee:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 0ebb980b88de1d8ff3579e899083678c
+            url:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/employees/0ebb980b88de1d8ff3579e899083678c
+              description: URL of employee being evaluated
+            firstname:
+              type: string
+              example: Diane
+            lastname:
+              type: string
+              example: Smith
+            employeenumber:
+              type: integer
+              example: 10976
+            email:
+              type: string
+              example: dianesmith@yourtown.gov
+        raters:
+          type: object
+          properties:
+            employee:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 19ef529e1aa1b62f7fcbcda2edc848ac
+                url:
+                  type: string
+                  example: >-
+                    https://api.neogov.com/rest/employees/19ef529e1aa1b62f7fcbcda2edc848ac
+                  description: URL for this rater
+                firstname:
+                  type: string
+                  example: Diane
+                lastname:
+                  type: string
+                  example: Smith
+                employeenumber:
+                  type: integer
+                  example: 10976
+                email:
+                  type: string
+                  example: dianesmith@yourtown.gov
+            raterOfRecord:
+              type: boolean
+              example: true
+              description: Whether this rater is the rater of record
+            submitted:
+              type: boolean
+              example: true
+              description: Whether this rater has submitted
+            CalculatedScore:
+              type: integer
+              example: 1.5
+              description: Calculated score
+            overallRating:
+              type: string
+              example: Meets expectations
+              description: Overall rating
+            dueDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Due date
+            languageFlag:
+              type: boolean
+              example: false
+              description: Set for languages other than English
+            weight:
+              type: integer
+              example: 0
+              description: Weight for this rating
+            statusDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Status date
+        approvers:
+          type: object
+          properties:
+            employee:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: d93bd96f77fe123fe5d96a6f30dbd2f9
+                url:
+                  type: string
+                  example: >-
+                    https://api.neogov.com/rest/employees/0ebb980b88de1d8ff3579e899083678c
+                firstname:
+                  type: string
+                  example: Diane
+                lastname:
+                  type: string
+                  example: Smith
+                employeenumber:
+                  type: integer
+                  example: 10976
+                email:
+                  type: string
+                  example: dianesmith@yourtown.gov
+            type:
+              type: string
+              example: ApprovalAndSignature
+              description: Approval type
+            requiredForRelease:
+              type: boolean
+              example: true
+              description: Approval required for release
+            dueDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Due date
+            status:
+              type: string
+              example: Completed
+              description: Status
+            statusDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Status date
+        acknowledgers:
+          type: object
+          properties:
+            employee:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: d93bd96f77fe123fe5d96a6f30dbd2f9
+                url:
+                  type: string
+                  example: >-
+                    https://api.neogov.com/rest/employees/0ebb980b88de1d8ff3579e899083678c
+                firstname:
+                  type: string
+                  example: Diane
+                lastname:
+                  type: string
+                  example: Smith
+                employeenumber:
+                  type: integer
+                  example: 10976
+                email:
+                  type: string
+                  example: dianesmith@yourtown.gov
+            dueDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Due date
+            status:
+              type: string
+              example: Completed
+              description: Status
+            statusDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Status date
+        criticalelementfailed:
+          type: boolean
+          example: false
+          description: Failure status
+        completionDate:
+          type: string
+          format: date-time
+          example: 1/19/2017
+          description: Completion date
+    Job Posting:
+      type: object
+      xml:
+        name: employeeevaluation
+      properties:
+        id:
+          type: string
+          example: 8f774b941635facee4d00ed0ae412cfc
+          description: ID of evaluation
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/evaluations/8f774b941635facee4d00ed0ae412cfc
+          description: URL of evaluation
+        name:
+          type: string
+          example: Annual review
+          description: Name of evaluation
+        type:
+          type: string
+          example: Periodic
+          description: Type of evaluation
+        description:
+          type: string
+          example: Annual performance review for John Smith
+          description: Description of evaluation
+        dueDate:
+          type: string
+          format: date-time
+          example: 03/24/2018
+          description: Due date of evaluation
+        showNumericScoring:
+          type: boolean
+          example: true
+          description: Whether to show numeric scoring
+        showOverallRating:
+          type: boolean
+          example: true
+          description: Whether to show the overall rating
+        status:
+          type: string
+          example: Completed
+          description: Status
+        score:
+          type: object
+          properties:
+            numeric:
+              type: object
+              properties:
+                actual:
+                  type: string
+                  example: 3
+                maximumPossible:
+                  type: integer
+                  example: 100
+                percentage:
+                  type: integer
+                  example: 75
+            rating:
+              type: object
+              properties:
+                text:
+                  type: string
+                  example: Annual review
+                value:
+                  type: integer
+                  example: 4
+        settings:
+          type: object
+          properties:
+            numericScoring:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: true
+                showActual:
+                  type: boolean
+                  example: true
+                  description: Whether to show actual score
+                showMaximum:
+                  type: boolean
+                  example: true
+                  description: Whether to show maximum score
+                showPercentage:
+                  type: boolean
+                  example: true
+                  description: Whether to show percentage score
+            overallRating:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  example: true
+                  description: Whether overll rating is enabled
+                ratingScale:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 8
+                    name:
+                      type: string
+                      description: Name of rating scale
+                      example: ATMN RATING SCALEKey10648
+                showText:
+                  type: boolean
+                  example: true
+                  description: Whether overall rating text is shown
+                showValue:
+                  type: boolean
+                  example: true
+                  description: Whether overall rating value is shown
+        employee:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 0ebb980b88de1d8ff3579e899083678c
+            url:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/employees/0ebb980b88de1d8ff3579e899083678c
+              description: URL of employee being evaluated
+            firstname:
+              type: string
+              example: Diane
+            lastname:
+              type: string
+              example: Smith
+            employeenumber:
+              type: integer
+              example: 10976
+            email:
+              type: string
+              example: dianesmith@yourtown.gov
+        raters:
+          type: object
+          properties:
+            employee:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 19ef529e1aa1b62f7fcbcda2edc848ac
+                url:
+                  type: string
+                  example: >-
+                    https://api.neogov.com/rest/employees/19ef529e1aa1b62f7fcbcda2edc848ac
+                  description: URL for this rater
+                firstname:
+                  type: string
+                  example: Diane
+                lastname:
+                  type: string
+                  example: Smith
+                employeenumber:
+                  type: integer
+                  example: 10976
+                email:
+                  type: string
+                  example: dianesmith@yourtown.gov
+            raterOfRecord:
+              type: boolean
+              example: true
+              description: Whether this rater is the rater of record
+            submitted:
+              type: boolean
+              example: true
+              description: Whether this rater has submitted
+            CalculatedScore:
+              type: integer
+              example: 1.5
+              description: Calculated score
+            overallRating:
+              type: string
+              example: Meets expectations
+              description: Overall rating
+            dueDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Due date
+            languageFlag:
+              type: boolean
+              example: false
+              description: Set for languages other than English
+            weight:
+              type: integer
+              example: 0
+              description: Weight for this rating
+            statusDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Status date
+        approvers:
+          type: object
+          properties:
+            employee:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: d93bd96f77fe123fe5d96a6f30dbd2f9
+                url:
+                  type: string
+                  example: >-
+                    https://api.neogov.com/rest/employees/0ebb980b88de1d8ff3579e899083678c
+                firstname:
+                  type: string
+                  example: Diane
+                lastname:
+                  type: string
+                  example: Smith
+                employeenumber:
+                  type: integer
+                  example: 10976
+                email:
+                  type: string
+                  example: dianesmith@yourtown.gov
+            type:
+              type: string
+              example: ApprovalAndSignature
+              description: Approval type
+            requiredForRelease:
+              type: boolean
+              example: true
+              description: Approval required for release
+            dueDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Due date
+            status:
+              type: string
+              example: Completed
+              description: Status
+            statusDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Status date
+        acknowledgers:
+          type: object
+          properties:
+            employee:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: d93bd96f77fe123fe5d96a6f30dbd2f9
+                url:
+                  type: string
+                  example: >-
+                    https://api.neogov.com/rest/employees/0ebb980b88de1d8ff3579e899083678c
+                firstname:
+                  type: string
+                  example: Diane
+                lastname:
+                  type: string
+                  example: Smith
+                employeenumber:
+                  type: integer
+                  example: 10976
+                email:
+                  type: string
+                  example: dianesmith@yourtown.gov
+            dueDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Due date
+            status:
+              type: string
+              example: Completed
+              description: Status
+            statusDate:
+              type: string
+              format: date
+              example: 1/19/2017
+              description: Status date
+        criticalelementfailed:
+          type: boolean
+          example: false
+          description: Failure status
+        completionDate:
+          type: string
+          format: date-time
+          example: 1/19/2017
+          description: Completion date
+    MasterProfile:
+      type: object
+      properties:
+        employeeId:
+          description: Employee ID
+          type: string
+          example: TCO-477
+        currentEmp:
+          type: boolean
+          example: true
+          description: true or false to indicate if current employee
+        ssnLast4:
+          type: integer
+          example: 4562
+          description: Last four digits of social security
+        firstName:
+          type: string
+          example: Mary
+          description: First name
+        lastName:
+          type: string
+          example: Smith
+          description: Last name
+        address1:
+          type: string
+          maxLength: 200
+          example: 921 Spring St
+          description: Address (street name and number)
+        address2:
+          type: string
+          maxLength: 200
+          example: W27-19
+          description: Additional address information
+        city:
+          type: string
+          maxLength: 200
+          example: Boston
+          description: City portion of address
+        state:
+          type: string
+          maxLength: 2
+          example: MA
+          description: State code portion of address
+        zip:
+          type: integer
+          maxLength: 10
+          example: 98765
+          description: Zip code portion of address
+        homePhone:
+          type: integer
+          example: 6507963286
+          description: Home phone number
+        alternatePhone:
+          type: integer
+          example: 7217962286
+          description: Alternate phone number
+        veteran:
+          type: boolean
+          maxLength: 10
+          example: true
+          description: 'Veteran status. True or False, 1 or 0'
+    MasterProfileSingleResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8f774b941635facee4d00ed0ae412cfc
+          description: Unique ID
+        personId:
+          type: string
+          example: 14172784
+          description: Unique person ID
+        employeeId:
+          description: Employee ID
+          type: string
+          example: TCO-477
+        ssnLast4:
+          type: integer
+          example: 4562
+          description: Last four digits of social security
+        currentEmp:
+          type: boolean
+          example: true
+          description: true or false to indicate if current employee
+        firstName:
+          type: string
+          example: Mary
+          description: First name
+        lastName:
+          type: string
+          example: Smith
+          description: Last name
+        address1:
+          type: string
+          maxLength: 200
+          example: 921 Spring St
+          description: Address (street name and number)
+        address2:
+          type: string
+          maxLength: 200
+          example: W27-19
+          description: Additional address information
+        city:
+          type: string
+          maxLength: 200
+          example: Boston
+          description: City portion of address
+        state:
+          type: string
+          maxLength: 2
+          example: MA
+          description: State code portion of address
+        zip:
+          type: integer
+          maxLength: 10
+          example: 98765
+          description: Zip code portion of address
+        countryId:
+          type: string
+          example: 1
+          description: Country ID
+        homePhone:
+          type: integer
+          example: 6507963286
+          description: Home phone number
+        alternatePhone:
+          type: integer
+          example: 7217962286
+          description: Alternate phone number
+        lastUpdated:
+          type: string
+          format: date-time
+          example: '2014-09-18T17:25:24.5'
+          description: Date and time of last update
+        lastUpdatedBy:
+          type: string
+          example: fredsmith
+          description: Person who last updated profile
+        veteran:
+          type: boolean
+          maxLength: 10
+          example: true
+          description: 'Veteran status. True or False, 1 or 0'
+        customFields:
+          type: object
+          properties:
+            singleValueCustomFields:
+              type: object
+    MasterProfileListResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8f774b941635facee4d00ed0ae412cfc
+          description: Unique ID
+        personId:
+          type: string
+          example: 14172784
+          description: Unique person ID
+        employeeId:
+          description: Employee ID
+          type: string
+          example: TCO-477
+        ssnLast4:
+          type: integer
+          example: 4562
+          description: Last four digits of social security
+        currentEmp:
+          type: boolean
+          example: true
+          description: true or false to indicate if current employee
+        firstName:
+          type: string
+          example: Mary
+          description: First name
+        lastName:
+          type: string
+          example: Smith
+          description: Last name
+        address1:
+          type: string
+          maxLength: 200
+          example: 921 Spring St
+          description: Address (street name and number)
+        address2:
+          type: string
+          maxLength: 200
+          example: W27-19
+          description: Additional address information
+        city:
+          type: string
+          maxLength: 200
+          example: Boston
+          description: City portion of address
+        state:
+          type: string
+          maxLength: 2
+          example: MA
+          description: State code portion of address
+        zip:
+          type: integer
+          maxLength: 10
+          example: 98765
+          description: Zip code portion of address
+        countryId:
+          type: string
+          example: 1
+          description: Country ID
+        homePhone:
+          type: integer
+          example: 6507963286
+          description: Home phone number
+        alternatePhone:
+          type: integer
+          example: 7217962286
+          description: Alternate phone number
+        lastUpdated:
+          type: string
+          format: date-time
+          example: '2014-09-18T17:25:24.5'
+          description: Date and time of last update
+        lastUpdatedBy:
+          type: string
+          example: fredsmith
+          description: Person who last updated profile
+        veteran:
+          type: boolean
+          maxLength: 10
+          example: true
+          description: 'Veteran status. True or False, 1 or 0'
+        customFields:
+          type: object
+          properties:
+            singleValueCustomFields:
+              type: object
+    PersonnelAction:
+      type: object
+      xml:
+        name: hire
+      properties:
+        id:
+          type: string
+          example: 80cf0ae262c4ff7f602e6de2811001ca585cd7ed6eb35ee3
+          description: ID of personnel action
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/personnelactions/hire/80cf0ae262c4ff7f602e6de2811001ca585cd7ed6eb35ee3
+          description: URL of personnel action
+        dthirestart:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: >-
+            Start date. Shown in current timezone, or with a UTC timezone
+            offset.
+        dtorientation:
+          type: string
+          format: date-time
+          example: '04/01/2018 21:00:00'
+          description: >-
+            Orientation date. Shown in current timezone, or with a UTC timezone
+            offset.
+        dtfilled:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: >-
+            Date filled.  Shown in current timezone, or with a UTC timezone
+            offset.
+        comments:
+          description: Comments
+          type: string
+          maxLength: 200
+          example: Accepted by email
+        keepactive:
+          type: boolean
+          example: Inactive
+          description: 'Keep action active. Active or Inactive, 1 or 0'
+        status:
+          type: boolean
+          example: Active
+          description: 'Active or Inactive, 1 or 0'
+        isreleased:
+          type: boolean
+          example: Active
+          description: 'Action is released. Active or Inactive, 1 or 0'
+        noapprovals:
+          type: boolean
+          example: Active
+          description: 'Action needs approvals. Active or Inactive, 1 or 0'
+        isapproved:
+          type: boolean
+          example: Active
+          description: 'Action is approved. Active or Inactive, 1 or 0'
+        offeramount:
+          description: Amount of offer
+          type: number
+          format: float
+          example: 50000
+        bonusamount:
+          description: Bonus amount
+          type: number
+          format: float
+          example: 3000
+        dtofferdate:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: Offer date
+        dtanswer:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: Answer date
+        offeranswer:
+          type: boolean
+          example: 1
+          description: 'Offer answer, 1 for yes or 0 for no'
+        offerdatecreated:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: Offer created date
+        applicationinfourl:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/applications/80cf0ae262c4ff7f602e6de2811001ca585cd7ed6eb35ee3
+          description: URL of application
+        jobpostingurl:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/jobpostings/412cd60caf233848c5d27b8cf766ee79
+          description: URL of job posting
+        requisitionurl:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/requisitions/24df64af78c8d246d238fa20a8cd7df0
+          description: URL of requistion
+        positioncontrolurl:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/positioncontrol/28e63d9657060bd50d375599b55e5659
+          description: URL of position control
+        authorizeddate:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: Authorized date
+        adminfirstname:
+          type: string
+          example: John
+          description: Adminstrator first name
+        adminlastname:
+          type: string
+          example: Smith
+          description: Adminstrator last name
+        personid:
+          type: string
+          example: 30519419
+          description: Person ID
+    PersonnelActionHireList:
+      type: object
+      xml:
+        name: hire
+      properties:
+        id:
+          type: string
+          example: 80cf0ae262c4ff7f602e6de2811001ca585cd7ed6eb35ee3
+          description: ID of personnel action
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/personnelactions/hire/80cf0ae262c4ff7f602e6de2811001ca585cd7ed6eb35ee3
+          description: URL of personnel action
+        dthirestart:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: >-
+            Start date. Shown in current timezone, or with a UTC timezone
+            offset.
+        dtorientation:
+          type: string
+          format: date-time
+          example: '04/01/2018 21:00:00'
+          description: >-
+            Orientation date. Shown in current timezone, or with a UTC timezone
+            offset.
+        dtfilled:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: >-
+            Date filled.  Shown in current timezone, or with a UTC timezone
+            offset.
+        comments:
+          description: Comments
+          type: string
+          maxLength: 200
+          example: Accepted by email
+        keepactive:
+          type: boolean
+          example: Inactive
+          description: 'Keep action active. Active or Inactive, 1 or 0'
+        status:
+          type: boolean
+          example: Active
+          description: 'Active or Inactive, 1 or 0'
+        isreleased:
+          type: boolean
+          example: Active
+          description: 'Action is released. Active or Inactive, 1 or 0'
+        noapprovals:
+          type: boolean
+          example: Active
+          description: 'Action needs approvals. Active or Inactive, 1 or 0'
+        isapproved:
+          type: boolean
+          example: Active
+          description: 'Action is approved. Active or Inactive, 1 or 0'
+        offeramount:
+          description: Amount of offer
+          type: number
+          format: float
+          example: 50000
+        bonusamount:
+          description: Bonus amount
+          type: number
+          format: float
+          example: 3000
+        dtofferdate:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: Offer date
+        dtanswer:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: Answer date
+        offeranswer:
+          type: boolean
+          example: 1
+          description: 'Offer answer, 1 for yes or 0 for no'
+        offerdatecreated:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: Offer created date
+        applicationinfourl:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/applications/80cf0ae262c4ff7f602e6de2811001ca585cd7ed6eb35ee3
+          description: URL of application
+        jobpostingurl:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/jobpostings/412cd60caf233848c5d27b8cf766ee79
+          description: URL of job posting
+        requisitionurl:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/requisitions/24df64af78c8d246d238fa20a8cd7df0
+          description: URL of requistion
+        positioncontrolurl:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/positioncontrol/28e63d9657060bd50d375599b55e5659
+          description: URL of position control
+        authorizeddate:
+          type: string
+          format: date-time
+          example: '03/31/2018 18:00:00'
+          description: Authorized date
+        adminfirstname:
+          type: string
+          example: John
+          description: Adminstrator first name
+        adminlastname:
+          type: string
+          example: Smith
+          description: Adminstrator last name
+        personid:
+          type: string
+          example: 30519419
+          description: Person ID
+    Position:
+      type: object
+      xml:
+        name: position
+      properties:
+        code:
+          description: Unique alpha-numeric code for position
+          type: string
+          maxLength: 50
+          example: TCO-477
+        title:
+          type: string
+          example: Traffic Control Officer
+          description: Name of department
+        departmentCode:
+          type: string
+          maxLength: 50
+          example: PAR1
+          description: Department ID for this position
+        departmentName:
+          type: string
+          maxLength: 100
+          example: Parking and Traffic
+          description: Department name for this position
+        description:
+          type: string
+          maxLength: 100
+          example: Parking and Traffic
+          description: Description of this position
+        maxFTE:
+          type: number
+          maxLength: 9
+          example: 33
+          description: 'Maximum FTE (9 digits, 2 after decimal)'
+        currentFTE:
+          type: number
+          maxLength: 9
+          example: 24
+          description: 'Current FTE (9 digits, 2 after decimal)'
+        divisionCode:
+          type: string
+          maxLength: 50
+          example: POL1
+          description: Division code for this position
+        divisionName:
+          type: string
+          maxLength: 100
+          example: POLICE
+          description: Division name for this position
+        classSpecificationCode:
+          type: string
+          maxLength: 50
+          example: 0502B
+          description: Class spec code for this position
+        classSpecificationTitle:
+          type: string
+          maxLength: 300
+          example: Human Resource Analyst 2 (Classification Comp)
+          description: Class spec name for this position
+        clientId:
+          type: string
+          maxLength: 50
+          example: LACOUNTY4
+          description: Unique client ID for this position
+        active:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - true
+            - false
+            - 1
+            - 0
+          example: Active
+          description: Whether the position is active
+      required:
+        - code
+        - title
+        - departmentCode
+        - departmentName
+    PositionResponse:
+      type: object
+      xml:
+        name: position
+      properties:
+        id:
+          type: string
+          example: 8f774b941635facee4d00ed0ae412cfc
+          description: ID of position
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/position/aca66f651a3a3255255ff4232874b5b0
+          description: URL of position
+        active:
+          type: string
+          enum:
+            - Active
+            - Inactive
+            - true
+            - false
+            - 1
+            - 0
+          example: Active
+          description: Whether the position is active
+        code:
+          description: Unique alpha-numeric code for position
+          type: string
+          maxLength: 50
+          example: TCO-477
+        title:
+          type: string
+          example: Traffic Control Officer
+          description: Name of department
+        description:
+          type: string
+          maxLength: 100
+          example: Parking and Traffic
+          description: Description of this position
+        maxFTE:
+          type: integer
+          maxLength: 9
+          example: 33
+          description: Maximum FTE
+        currentFTE:
+          type: number
+          maxLength: 9
+          example: 24
+          description: Current FTE
+        department:
+          type: object
+          properties:
+            name:
+              type: string
+              maxLength: 100
+              example: Parking and Traffic
+              description: Department name for this position
+            code:
+              type: string
+              maxLength: 50
+              example: PAR1
+              description: Department ID for this position
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/departments/d4361acbeb01ff1f14bc9535481237bd
+              description: URL to department for this position
+        division:
+          type: object
+          properties:
+            code:
+              type: string
+              maxLength: 50
+              example: POL1
+              description: Division code for this position
+            name:
+              type: string
+              maxLength: 100
+              example: POLICE
+              description: Division name for this position
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/divisions/d4361acbeb01ff1f14bc9535481237bd
+              description: URL to division for this position
+        classSpecification:
+          type: object
+          properties:
+            code:
+              type: string
+              maxLength: 50
+              example: 0502B
+              description: Class spec code for this position
+            title:
+              type: string
+              maxLength: 300
+              example: Human Resource Analyst 2 (Classification Comp)
+              description: Class spec title for this position
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/classspecifications/1c0b0f668e308860659431b1181be0f1
+              description: URL to class spec for this position
+        clientId:
+          type: string
+          maxLength: 50
+          example: LACOUNTY4
+          description: Unique client ID for this position
+    PositionControl:
+      type: object
+      xml:
+        name: position
+      properties:
+        positioncode:
+          description: Position code. Must be unique within the specified departmentcode
+          type: string
+          maxLength: 50
+          example: AR3021
+        positiontitle:
+          type: string
+          maxLength: 100
+          example: Accountant
+          description: Title of position
+        bargainigunitcode:
+          type: string
+          maxLength: 50
+          example: GEN
+          description: Bargaining unit code for position
+        jobtermcode:
+          type: string
+          maxLength: 50
+          example: Full-Time
+          description: Job term
+        departmentcode:
+          type: string
+          example: HR
+          description: Department code  for this position
+        divisioncode:
+          type: string
+          example: Benefits
+          description: Division code  for this position
+        status:
+          type: boolean
+          example: Active
+          description: 'True or False, 1 or 0'
+        maxFTE:
+          type: number
+          maxLength: 9
+          example: 33
+          description: 'Maximum FTE (9 digits, 2 after decimal)'
+        currentFTE:
+          type: number
+          maxLength: 9
+          example: 24
+          description: 'Current FTE ( 9 digits, 2 after decimal)'
+        positionstatusdefcode:
+          type: string
+          example: A
+          description: >
+            Position status code. A Approved, E Eliminated, G Generated, P
+            Proposed, F Frozen, V Vacant, 
+
+            I Inactive, FI Filled. GET returns this as positionstatuscode.
+        parentpositioncode:
+          type: string
+          maxLength: 50
+          example: AR2020
+          description: Position code for parent position
+    PositionControlResponse:
+      type: object
+      xml:
+        name: position
+      properties:
+        id:
+          type: string
+          example: dfa31f78cce292cc442476aea59dd883
+          description: ID of position
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/positioncontrol/dfa31f78cce292cc442476aea59dd883
+          description: URL of position
+        employerid:
+          type: string
+          example: dfa31f78cce292cc442476aea59dd883
+          description: ID of employer
+        positioncode:
+          description: Position code. Must be unique within the specified departmentcode
+          type: string
+          maxLength: 50
+          example: AR3021
+        positiontitle:
+          type: string
+          maxLength: 100
+          example: Accountant
+          description: Title of position
+        jobtermcode:
+          type: string
+          maxLength: 50
+          example: Full-Time
+          description: Job term
+        departmentcode:
+          type: string
+          example: HR
+          description: Department code  for this position
+        divisioncode:
+          type: string
+          example: Benefits
+          description: Division code  for this position
+        parentpositioncode:
+          type: string
+          maxLength: 50
+          example: AR2020
+          description: Position code for parent position
+        positionstatuscode:
+          type: string
+          example: A
+          description: >
+            Position status code. A Approved, E Eliminated, G Generated, P
+            Proposed, F Frozen, V Vacant, 
+
+            I Inactive, FI Filled. GET returns this as positionstatuscode.
+        bargainigunitcode:
+          type: string
+          maxLength: 50
+          example: GEN
+          description: Bargaining unit code for position
+        status:
+          type: boolean
+          example: Active
+          description: 'True or False, 1 or 0'
+        standardhours:
+          type: integer
+        maxheadcount:
+          type: integer
+          example: 5
+          description: Maximum headcount
+        currentheadcount:
+          type: integer
+          example: 3
+          description: Current headcount
+        maxfte:
+          type: number
+          maxLength: 9
+          example: 33
+          description: 'Maximum FTE ( 9 digits, 2 after decimal)'
+        currentfte:
+          type: number
+          maxLength: 9
+          example: 24
+          description: 'Current FTE (9 digits, 2 after decimal)'
+        createdate:
+          type: string
+          format: date-time
+          example: '02/16/2013 22:59:12'
+          description: Creation date
+        updatedate:
+          type: string
+          format: date-time
+          example: '09/14/2018 04:21:55'
+          description: Update date
+    Requisition:
+      type: object
+      xml:
+        name: requisition
+      properties:
+        id:
+          type: string
+          example: 215b89a7caa336b0e90305d46b095f23
+          description: ID of requisition
+        url:
+          type: string
+          example: >-
+            https://api.neogov.com/rest/requisitions/215b89a7caa336b0e90305d46b095f23
+          description: URL of requisition
+        requisitionnumber:
+          description: Unique alpha-numeric code for requisition
+          type: string
+          example: 200399
+        requisitiontitle:
+          type: string
+          example: Account Manager
+          description: Name of requisition
+        classcode:
+          type: string
+          example: 23232
+          description: Class spec code
+        classtitle:
+          type: string
+          example: Account Management-555
+          description: Class spec title
+        departmentcode:
+          type: string
+          example: HR
+          description: Department code
+        divisioncode:
+          type: string
+          example: Benefits
+          description: Division code
+        listtype:
+          type: string
+          example: Regular
+          description: Type of listing
+        status:
+          type: string
+          example: Cancelled
+          description: Status of requisition
+        createdbyfirstname:
+          type: string
+          example: John
+          description: First name of requisition creator
+        createdbylastname:
+          type: string
+          example: Smith
+          description: Last name of requisition creator
+        datecreated:
+          type: string
+          format: date-time
+          example: '07/01/2018 19:47:18'
+          description: Creation date
+        jobterm:
+          type: string
+          example: Full-Time
+          description: Job term
+        comments:
+          type: string
+          example: Assistant for South Cedar project
+          description: Notes on this requisition
+        workingtitle:
+          type: string
+          example: Account Manager
+          description: Working title of requisition
+        authcomments:
+          type: string
+          example: Immediate vacancy
+          description: Author comments
+        authlastupdated:
+          type: string
+          format: date-time
+          example: '01/14/2018 10:41:34'
+          description: Author update date
+        authfirstname:
+          type: string
+          example: Sally
+          description: Author first name
+        authlastname:
+          type: string
+          example: Gonzales
+          description: Author last name
+        desiredstartdate:
+          type: string
+          format: date-time
+          example: 00/01/2018
+          description: Desired start date
+        vacancies:
+          type: string
+          example: 1
+          description: Number of vacancies
+        customformfields:
+          type: object
+          description: Custom fields
+          properties:
+            singlevaluecustomfields:
+              type: object
+            multivaluecustomfields:
+              type: object
+    User:
+      type: object
+      xml:
+        name: user
+      properties:
+        username:
+          description: Unique name of user
+          type: string
+          maxLength: 50
+          example: staceys@orlando.gov
+        securityprofile:
+          type: string
+          example: Employee
+          description: >-
+            Security profile. Employee, Manager, or HR Admin. For Manager, the
+            employee must have direct reports.
+        active:
+          type: boolean
+          example: Active
+          description: 'True or False, or 1 or 0'
+        applicationaccess:
+          type: string
+          example: BOTH
+          description: >-
+            Application(s) that this user can access. IN, PF, BOTH, or NONE.
+            Default is NONE.
+      required:
+        - username
+        - securityprofile
+        - applicationaccess
+    UserResponse:
+      type: object
+      xml:
+        name: user
+      properties:
+        id:
+          type: string
+          example: f3e2c5a8abb1c28c05a54677ed97a29b
+          description: ID of user
+        uri:
+          type: string
+          example: 'https://api.neogov.com/rest/users/f3e2c5a8abb1c28c05a54677ed97a29b'
+          description: URI of user
+        username:
+          description: Unique name of user
+          type: string
+          maxLength: 50
+          example: staceys@orlando.gov
+        securityprofile:
+          type: string
+          example: Employee
+          description: 'Security profile. Employee, Manager, or HR Admin.'
+        applicationaccess:
+          type: string
+          example: BOTH
+          description: 'Application(s) that this user can access. IN, PF, or BOTH.'
+        active:
+          type: boolean
+          example: Active
+          description: 'True or False, or 1 or 0'
+        employee:
+          type: object
+          properties:
+            employeeNumber:
+              type: string
+              example: 14001
+              description: Employee number
+            id:
+              type: string
+              example: cc0be117d30dc9f1cb13af316f8944cc
+              description: ID of employee
+            uri:
+              type: string
+              example: >-
+                https://api.neogov.com/rest/employees/cc0be117d30dc9f1cb13af316f8944cc
+              description: URI of employee
+            name:
+              type: string
+              example: Mary Smith
+              description: Name
+        email:
+          type: string
+          example: jsmith@mytown.gov
+          description: Email address
+    UserPutResponse:
+      type: object
+      xml:
+        name: user
+      properties:
+        id:
+          type: string
+          example: f3e2c5a8abb1c28c05a54677ed97a29b
+          description: ID of user
+        url:
+          type: string
+          example: 'https://api.neogov.com/rest/users/f3e2c5a8abb1c28c05a54677ed97a29b'
+          description: URL of user
+    UserDepartment:
+      type: object
+      xml:
+        name: userdepartment
+      properties:
+        code:
+          description: Alpha-numeric code of department
+          type: string
+          example: FIN
+        name:
+          type: string
+          example: Finance
+          description: Name of department
+      required:
+        - code
+        - name
+security:
+  - basicAuth: []
+paths:
+  '/applications/{ApplicationID}':
+    get:
+      summary: Retrieve application information
+      description: >-
+        Retrieve a single application using the specified application ID. You
+        can get a list of these IDs with GET /personnelactions/recenthires.
+      operationId: Find application information ID.
+      tags:
+        - Application Information
+      parameters:
+        - name: ApplicationID
+          in: path
+          description: Application ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An application
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationInformation'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApplicationInformation'
+  /applications:
+    get:
+      summary: Retrieve a list of applications using a condition
+      description: >-
+        Retrieve a list of applications by applying a condition to one or more
+        fields
+      operationId: getApplicationsQuery
+      tags:
+        - Application Information
+      parameters:
+        - name: $filter
+          in: query
+          required: true
+          description: >
+            Filter applications by property values, using `?$filter={field}
+            (operator} {value}` syntax.
+
+
+
+            ### Fields
+
+            You can filter by these fields:
+
+            * applicationid
+
+            * eligibledate
+
+            * jobpostingclosedate
+
+            * jobpostingnumber
+
+
+            ### Operators
+
+            You can use the following operators:
+
+            * eq
+
+            * ge 
+
+            * lt
+
+            * le
+             
+             For applicationid and jobpostingnumber, only `eq` is supported. For eligibledate and jobpostingclosedate, only `ge` and `le` are supported.
+             
+             ### Values
+             For value, if you are testing a string, surround it with single quotes. If you are testing a date, precede the date with the `datetime` keyword. For example:
+             
+             `datetime'2018-07-22T15:10:00.000'`
+             
+             ### Examples
+             `https://api.neogov.com/rest/applications?$filter=applicationid eq '9114dc99d78dc1a0404fea873f31e77e4753067166a5e3bf'`
+            `https://api.neogov.com/rest/applications?$filter=jobpostingclosedate
+            gt datetime'2019-08-28T15:10:00.000'`
+
+            `https://api.qa.neogov.net/rest/applications?$filter=jobpostingnumber
+            eq '987351f'` <br/>
+
+            `https://api.qa.neogov.net/rest/applications?$filter=eligibledate ge
+            datetime'2018-07-22T15:10:00.000'`
+
+
+            When using Try it Out, in the text box below, you do not need to
+            enter `?$filter=`. Just enter the values and conditions that you are
+            testing, for example:
+
+
+            `jobpostingclosedate gt datetime'2019-08-28T15:10:00.000'`
+
+             
+          schema:
+            type: string
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+        - name: $top
+          in: query
+          description: Number of records to retrieve. Default is 10.
+          schema:
+            type: integer
+        - name: $skip
+          in: query
+          required: false
+          description: >-
+            Skip to N + 1 record number for the first returned record. Defaults
+            to 0.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of applications
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplicationListResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ApplicationListResponse'
+  '/applications/{ApplicationID}/awquestions':
+    get:
+      summary: Retrieve agency-wide questions
+      description: >-
+        Retrieve only the agency-wide questions from a single application using
+        the specified application ID.
+      operationId: getAWQ
+      tags:
+        - Application Information
+      parameters:
+        - name: ApplicationID
+          in: path
+          description: Application ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Agency-wide questions
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  multianswerquestions:
+                    type: object
+                    description: Mutilple answer question and answers
+                  singleanswerquestions:
+                    type: object
+                    description: Single answer question and answers
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  multianswerquestions:
+                    type: object
+                    xml:
+                      name: multianswerquestions
+                  singleanswerquestions:
+                    type: object
+                    xml:
+                      name: singleanswerquestions
+  /classspecifications:
+    get:
+      summary: Retrieve a list of class specs
+      description: Retrieve a list of class specs.
+      operationId: getClasspecs
+      tags:
+        - Class Specification
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: A class spec
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassSpecificationResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClassSpecificationResponse'
+    post:
+      summary: Create a class spec
+      operationId: postClassSpec
+      tags:
+        - Class Specification
+      requestBody:
+        description: >-
+          Create a class spec using the specified parameters. The ID is assigned
+          when created.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassSpecification'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/ClassSpecification'
+      responses:
+        '200':
+          description: A class spec
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassSpecification'
+  '/classspecifications/{classSpecID}':
+    get:
+      summary: Retrieve a single class spec
+      description: >-
+        Retrieve a class specs using the specified ID. You can get a list of
+        class specs IDs with `GET /classspecifications`.
+      operationId: Find class spec by ID.
+      tags:
+        - Class Specification
+      parameters:
+        - name: classSpecID
+          in: path
+          description: ID of class spec to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A class spec
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassSpecificationResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClassSpecificationResponse'
+    put:
+      summary: Update a class spec
+      operationId: putClassSpec
+      tags:
+        - Class Specification
+      parameters:
+        - name: classSpecID
+          in: path
+          description: ID of class spec to update
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          Update a class spec using the specified ID and parameters. The
+          parameters are the same as the POST input parameters, but only
+          `classcode` and `classtitle` are required.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClassSpecificationUpdateMin'
+      responses:
+        '200':
+          description: A class spec
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClassSpecificationResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/ClassSpecificationResponse'
+  '/cloud/{cloudName}':
+    get:
+      summary: Retrieve one or more records from a cloud object
+      description: >
+        Retrieve one or more records from a cloud object.  
+
+
+        Use the internal name of the object, which can differ from the name. You
+        can get the internal name
+
+        by editing the cloud object, for example from a custom form:   
+
+
+        <img class="left-image" src="images/co_internal.png">
+            
+        A maximum of ten records are returned, and 
+
+        by default records on the first page are shown. You can change this with
+        pagination options.
+
+        You can also filter results using filtering options.  
+
+
+        ### Cloud Object Security
+
+
+        Each cloud object API call is authenticated using a username and
+        password.   
+
+
+        Permissions to access a cloud object are further modified by the object
+        and field level 
+
+        role-based permissions.  
+
+
+        Object permissions apply to the entire object. Field permissions allow
+        you to define permissions 
+
+        on a per-field basis. Object permissions take precedence over field
+        level permissions. For example, 
+
+        if you configure field level permissions to enable write for Managers,
+        then write permission for
+
+        Managers must also be enabled for the object.  
+
+
+
+        ### Encryption
+
+        All record IDs are returned in encrypted form.  
+
+
+        When using the POST and PUT operations, you should encrypt the IDs.
+      operationId: getCloudObject
+      parameters:
+        - name: cloudName
+          in: path
+          description: Internal name of cloud object.
+          required: true
+          schema:
+            type: string
+            example: leaverequest
+      tags:
+        - Cloud Objects
+      responses:
+        '200':
+          description: A cloud object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cloud%20Object'
+  '/cloud/{cloudName}/{cloudRecordID}':
+    get:
+      summary: >-
+        Retrieve a single data record from a cloud object using the specified
+        object name and record ID
+      description: >-
+        Retrieve a single data record from a cloud object using the specified
+        object name and record ID.
+      operationId: getCloudObjectbyID
+      parameters:
+        - name: cloudName
+          in: path
+          description: Internal name of cloud object.
+          required: true
+          schema:
+            type: string
+            example: 2018_I9
+        - name: cloudRecordID
+          in: path
+          description: Record ID.
+          required: true
+          schema:
+            type: string
+            example: c843ea81fd7168dcb733f789e35148bc
+      tags:
+        - Cloud Objects
+      responses:
+        '200':
+          description: A cloud object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cloud%20Object'
+    delete:
+      summary: >-
+        Delete a single data record from a cloud object using the specified
+        object name and record ID
+      description: >-
+        Delete a single data record from a cloud object using the specified
+        object name and record ID.
+      operationId: deleteCloudObject
+      parameters:
+        - name: cloudName
+          in: path
+          description: Internal name of cloud object.
+          required: true
+          schema:
+            type: string
+            example: 2018_I9
+        - name: cloudRecordID
+          in: path
+          description: Record ID.
+          required: true
+          schema:
+            type: string
+            example: c843ea81fd7168dcb733f789e35148bc
+      tags:
+        - Cloud Objects
+      responses:
+        '200':
+          description: A cloud object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cloud%20Object'
+    post:
+      summary: Create a record in the specified cloud object
+      description: >-
+        Create a record in the specified cloud object. For input parameters,
+        provide the required data for the object in JSON format, omitting the ID
+        (the ID is already part of the URL). You can get a list of parameters
+        with `GET /cloud/:cloudObjectName`.
+      operationId: postCloudObject
+      parameters:
+        - name: cloudName
+          in: path
+          description: Internal name of cloud object.
+          required: true
+          schema:
+            type: string
+            example: 2018_I9
+      tags:
+        - Cloud Objects
+      requestBody:
+        description: Create a record in a cloud object using the specified parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cloud%20Object'
+      responses:
+        '200':
+          description: A cloud object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cloud%20Object'
+    put:
+      summary: Update a record in the specified cloud object
+      description: >-
+        Update a record in the specified cloud object. For input parameters,
+        provide the required data for the object in JSON format, omitting the ID
+        (the ID is already part of the URL). You can get a list of parameters
+        with `GET /cloud/:cloudObjectName`.
+      operationId: putCloudObject
+      parameters:
+        - name: cloudName
+          in: path
+          description: Internal name of cloud object.
+          required: true
+          schema:
+            type: string
+            example: 2018_I9
+        - name: cloudRecordID
+          in: path
+          description: Record ID.
+          required: true
+          schema:
+            type: string
+            example: c843ea81fd7168dcb733f789e35148bc
+      tags:
+        - Cloud Objects
+      requestBody:
+        description: Update a cloud object using the specified parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cloud%20Object'
+      responses:
+        '200':
+          description: A cloud object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cloud%20Object'
+  '/cloud/{cloudName}?$filter={fieldName} {fieldOperator} {fieldCondition} & $format=json':
+    get:
+      summary: >-
+        Limit the data that is returned from a cloud object by applying a
+        condition to one or more fields.
+      description: "When using the `GET /cloud/:cloudObjectName` method to retrieve cloud objects, you can specify \n`$filter` query string parameter options to limit the data that is returned by applying a condition to \none    more fields.<br/>\nYou can limit the results by testing a string, number, or date. <br/>\nFor filtering, the endpoint URI does not contain the resource, unlike other cloud object URIs and \nstandard entities. That is, `/rest/` is not part of the URI. For example: <br/>\n`https://api.neogov.com/cloud/employees?$filter=First_Name eq 'Fred' & $format=json` <br/>\nThe range of operators (indicated by :operator in the method syntax) supported by filtering varies by \nthe field type. <br/>\nWhen filtering, if the cloud object is associated with an employee, the employee data is also returned. \nIt is embedded in the response.\n\n### String Filtering\n\nYou can filter strings fields with the following syntax.  \n`?$filter=:field_name :operator ':string_to_match' & $format=json`  \n\nFor example:  \n`GET https://api.neogov.com/cloud/Individual_Development_Plan?$filter=note eq 'Previously approved'& $format=json`  \nReturns only those records where Previously approved matches the string in the note field.  \n\nString matching is case-insensitive.\n\n### Numeric Filtering\n\nYou can filter numeric fields with the following syntax.  \n\n`?$filter=:field_name :operator :number_to_match & $format=json`    \nReturns records where the specified number matches the :operator (such as `gt` for greater than) in \nthe specified numeric field. For example:  \n`GET https://api.neogov.com/cloud/leaverequest?$filter=requested_hours gt 20 &$format=json` \n\nReturns only those records where `requested_hours` is greater than 20.\n\n\n### Date Filtering\t\n\nYou can filter dates (type Date) with the following syntax. \n\n`$filter=:field_name :operator datetime:date`  \nReturns records where the specified date matches the :operator in the specified date field. The format for `date` is ISO 8601. For example:  \n`GET https://api.neogov.com/cloud/leaverequest?$filter=start_date eq datetime2014-01-16T08:00:00Z &$format=json`  \n\nReturns only those records where `2014-01-16T08:00:00Z` equals the date in the `start_date` field.  \nIf a cloud object has a `createddate` or `updateddate` field, you can filter by these dates. For example:  \n`GET https://api.neogov.com/cloud/xEmployee?$filter=createdatetime gt datetime'2015-01-01' &$format=json`     \nReturns only those xEmployee records where `createddate` is greater than '2015-01-01'.\n\n ### Logical Operators for Filtering\n\nThe range of operators supported by filtering varies by the field type, as shown in the next table.   <br/>\n<br/>             \n  \n<table id=\"fieldops\" class=\"filter\">\n<caption>Logical Operators for Filtering</caption>\n<tbody>\n\n\n\n<tr dir=\"ltr\">\n<td class=\"hd\" id=\"no_ruling\">\n  <p style=\"height:39px;\">&nbsp;</p>\n</td>\n\n\n\n\n\n<td width=\"50\" align=\"left\" valign=\"top\" class=\"s1\" dir=\"ltr\">Equal (eq)</td>\n\n<td width=\"56\" align=\"left\" valign=\"top\">Not Equal (ne)</td>\n\n<td width=\"69\" align=\"left\" valign=\"top\" class=\"s1\" dir=\"ltr\">Greater than (gt)</td>\n\n<td width=\"64\" align=\"left\" valign=\"top\" class=\"s2\" dir=\"ltr\">Greater than<br />\nor Equal (ge)</td>\n\n<td width=\"47\" align=\"left\" valign=\"top\" class=\"s1\" dir=\"ltr\">Less than (lt)</td>\n\n<td width=\"52\" align=\"left\" valign=\"top\" class=\"s2\" dir=\"ltr\">Less than<br />\nor Equal (le)</td>\n\n<td width=\"30\" align=\"left\" valign=\"top\" class=\"s1\" dir=\"ltr\">And</td>\n\n<td width=\"19\" align=\"left\" valign=\"top\" class=\"s2\" dir=\"ltr\">Or</td>\n\n<td width=\"27\" align=\"left\" valign=\"top\" class=\"s2\" dir=\"ltr\">Not</td>\n</tr>\n\n<tr>\n\n\n\n <td dir=\"ltr\" class=\"s3\">Single Text</td>\n\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n\n\n<td>&#10007;</td>\n\n<td><span class=\"s4\">&#10004;</span></td>\n\n<td>&#10007;</td>\n\n<td>&#10007;</td>\n\n</tr>\n\n<tr dir=\"ltr\">\n<td dir=\"ltr\" class=\"s3\">Number</td>\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n<td>&#10007;</td>\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n\n\n<td>&#10007;</td>\n</tr>\n\n<tr dir=\"ltr\">\n<td dir=\"ltr\" class=\"s3\">Toggle</td>\n\n<td dir=\"ltr\" class=\"s4\">&#10004;</td>\n\n<td>&#10007;</td>\n\n<td dir=\"ltr\" class=\"s7\">&#10007;</td>\n\n<td class=\"s8\"><span class=\"s7\">&#10007;</span></td>\n\n<td class=\"s8\"><span class=\"s7\">&#10007;</span></td>\n\n<td class=\"s8\"><span class=\"s7\">&#10007;</span></td>\n\n<td class=\"s8\"><span class=\"s7\">&#10007;</span></td>\n\n<td class=\"s8\"><span class=\"s7\">&#10007;</span></td>\n\n<td><span class=\"s7\">&#10007;</span></td>\n</tr>\n\n<tr>\n<td>URL</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n\n</tr>\n\n<tr>\n<td>Email</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n\n</tr>\n\n<tr>\n<td>Phone</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n\n</tr>\n\n\n<tr>\n<td>Auto Number</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n</tr>\n\n\n\n\n\n\n<tr>\n<td>Currency</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n\n</tr>\n\n<tr>\n<td>Formula</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n\n</tr>\n\n\n<tr>\n<td>Rating</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n\n</tr>\n\n\n\n\n<tr>\n<td>Lookup</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n\n</tr>\n\n<tr>\n<td>Date</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10004;</td>\n\n<td>&#10007;</td>\n\n\n</tr>\n\n\n\n\n<tr dir=\"ltr\">\n<td dir=\"ltr\" class=\"s3\">Driver Licence</td>\n\n<td colspan=\"9\" dir=\"ltr\" class=\"s10\">&#10007;</td>\n\n\n</tr>\n\n<tr dir=\"ltr\">\n<td dir=\"ltr\" class=\"s3\">SSN</td>\n\n<td colspan=\"9\" dir=\"ltr\" class=\"s10\">&#10007;</td>\n\n</tr>\n\n<tr dir=\"ltr\">\n<td dir=\"ltr\" class=\"s3\">Single Selection</td>\n\n<td colspan=\"9\" dir=\"ltr\" class=\"s10\">&#10007;</td>\n\n</tr>\n\n<tr>\n<td>Multiple Selection</td>\n\n<td colspan=\"9\">&#10007;</td>\n</tr>\n\n\n</tbody>\n</table>\n"
+      servers:
+        - url: 'https://api.qa.neogov.net/'
+        - url: 'https://api.staging.neogov.net/'
+        - url: 'https://api.uat.neogov.net/'
+        - url: 'https://api.neogov.com/'
+      operationId: getCloudbyQuery
+      tags:
+        - Cloud Objects
+      parameters:
+        - name: cloudName
+          in: path
+          description: Internal name of cloud object.
+          required: true
+          schema:
+            type: string
+            example: 2018_I9
+        - name: fieldName
+          in: path
+          description: Field to use for query
+          example: employee_address
+          schema:
+            type: string
+        - name: fieldOperator
+          in: path
+          description: Operator
+          schema:
+            type: string
+            enum:
+              - eq
+              - ne
+              - gt
+              - ge
+              - lt
+              - le
+              - and
+              - or
+              - not
+        - name: fieldCondition
+          in: path
+          description: >-
+            Field condition/value to test. If you are testing a string, surround
+            it with single quotes. If you are testing a date, precede the date
+            with the `datetime` keyword.
+          schema:
+            type: string
+          example: 'true, false, ''Smith'', ''1563'', datetime''2015-10-25T02:13:40Z'''
+        - name: $top
+          in: path
+          description: Number of records to retrieve. Default is 10
+          example: 5
+          schema:
+            type: integer
+        - name: $skip
+          in: path
+          required: false
+          description: >-
+            Skip to N + 1 record number for the first returned record. Defaults
+            to 0
+          example: 2
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A cloud object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cloud%20Object'
+  '/cloud/{cloudName}?$filter={relatedName}/{fieldName} {fieldOperator} {fieldCondition} & $format=json':
+    get:
+      summary: >-
+        Limit the data that is returned when a cloud object is associated with
+        an employee
+      description: >
+        If a cloud object is associated with an employee, then information on
+        the employee, department, 
+
+        division, and position is returned when querying the cloud object.
+
+
+        You can use the $filter query string parameter option to limit the data
+        that is returned by 
+
+        applying a condition to one or more fields for this related information.
+
+
+        For filtering associated employee information, the endpoint URI does not
+        contain the resource, 
+
+        unlike other cloud object URIs and standard entities. That is, /rest/ is
+        not part of the URI. 
+
+        For example:
+
+
+        `https://api.neogov.com/cloud/leaverequest?$filter=xemployeelookup/xfirstname
+        eq 'Aleix' &$format=json&`
+      tags:
+        - Cloud Objects
+      servers:
+        - url: 'https://api.qa.neogov.net/'
+        - url: 'https://api.staging.neogov.net/'
+        - url: 'https://api.uat.neogov.net/'
+        - url: 'https://api.neogov.com/'
+      parameters:
+        - name: cloudName
+          in: path
+          description: Internal name of cloud object.
+          required: true
+          schema:
+            type: string
+            example: 2018_I9
+        - name: relatedName
+          in: path
+          description: Field to query on
+          schema:
+            type: string
+            enum:
+              - xemployeelookup
+              - xdepartment
+              - xdivision
+              - xposition
+        - name: fieldName
+          in: path
+          description: Field to use for query
+          example: xfirstname
+          schema:
+            type: string
+        - name: fieldOperator
+          in: path
+          description: Operator
+          schema:
+            type: string
+            enum:
+              - eq
+              - ne
+              - gt
+              - ge
+              - lt
+              - le
+              - and
+              - or
+              - not
+        - name: fieldCondition
+          in: path
+          description: Field condition/value to test
+          schema:
+            type: string
+            example: 'true, false. ''Smith'', ''1563'', datetime''2015-10-25T02:13:40Z'''
+      responses:
+        '200':
+          description: A cloud object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cloud%20Object'
+  /departments:
+    get:
+      summary: Retrieve a list of departments
+      description: Retrieve a list of departments.
+      operationId: getDepartments
+      tags:
+        - Department
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: A list of departments
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentListResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DepartmentListResponse'
+    post:
+      summary: Create a department
+      operationId: postDepartment
+      tags:
+        - Department
+      requestBody:
+        description: >-
+          Create a department using the specified parameters. The ID is assigned
+          when created.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+      responses:
+        '200':
+          description: A department
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+  '/departments/{departmentID}':
+    get:
+      summary: Retrieve a single department
+      description: >-
+        Retrieve a single department using the specified ID. You can get a list
+        of department IDs with `GET /department`.
+      operationId: Find department by ID.
+      tags:
+        - Department
+      parameters:
+        - name: departmentID
+          in: path
+          description: ID of department to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A department
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+    put:
+      summary: Update a department
+      operationId: putDepartment
+      tags:
+        - Department
+      parameters:
+        - name: departmentID
+          in: path
+          description: ID of department to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update a department using using the specified ID and parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Department'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Department'
+      responses:
+        '200':
+          description: A department
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+  /divisions:
+    get:
+      summary: Retrieve a list of divisions
+      description: Retrieve a list of divisions.
+      operationId: getDepartments
+      tags:
+        - Division
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: A list of divisions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionListResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DivisionListResponse'
+    post:
+      summary: Create a division
+      operationId: postDivision
+      tags:
+        - Division
+      requestBody:
+        description: >-
+          Create a division using the specified parameters. The ID is assigned
+          when created.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Division'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Division'
+      responses:
+        '200':
+          description: A department
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DivisionResponse'
+  '/divisions/{divisionID}':
+    get:
+      summary: Retrieve a single division
+      description: >-
+        Retrieve a single division using the specified ID. You can get a list of
+        division IDs with `GET /divisions`.
+      operationId: Find division by ID.
+      tags:
+        - Division
+      parameters:
+        - name: divisionID
+          in: path
+          description: ID of division to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A division
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DivisionResponse'
+    put:
+      summary: Update a division
+      operationId: putDivision
+      tags:
+        - Division
+      parameters:
+        - name: divisionID
+          in: path
+          description: ID of division to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update a division using using the specified ID and parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Division'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Division'
+      responses:
+        '200':
+          description: A division
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DivisionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DivisionResponse'
+  /employees:
+    get:
+      summary: Retrieve a list of employees
+      description: Retrieve a list of employees.
+      operationId: getEmployees
+      tags:
+        - Employee
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: An employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+    post:
+      summary: Create an employee
+      operationId: postEmployee
+      tags:
+        - Employee
+      requestBody:
+        description: >
+          Create an employee using the specified parameters. The ID is assigned
+          when created.  `departmentcode` and `departmentname` must be an
+          existing active department, and `positioncode` and `positiontitle`
+          must exist in that department.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePayload'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/EmployeePayload'
+      responses:
+        '200':
+          description: An employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+  '/employees/{employeeID}':
+    get:
+      summary: Retrieve a single employee by ID
+      description: >-
+        Retrieve a single employee using the specified ID. You can get a list of
+        employee IDs with `GET /employees`.
+      operationId: Find employee by ID.
+      tags:
+        - Employee
+      parameters:
+        - name: employeeID
+          in: path
+          description: ID of employee to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+    put:
+      summary: Update an employee
+      operationId: putEmployee
+      tags:
+        - Employee
+      parameters:
+        - name: employeeID
+          in: path
+          description: ID of employee to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an employee using using the specified ID and parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePayload'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/EmployeePayload'
+      responses:
+        '200':
+          description: An employee ID and URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeUpdateResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmployeeUpdateResponse'
+  /employees/created:
+    get:
+      summary: Retrieve employees by filtering by created date
+      description: >-
+        Retrieve employees based on created dates. This date is stored in the
+        `createddate` field. You can use only `from` for a start date, only `to`
+        for an end date, or combine `from` and `to` to specify a range of dates.
+      operationId: getEmployeesCreate
+      tags:
+        - Employee
+      parameters:
+        - name: from
+          in: query
+          description: From created date to filter employee list
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 9/8/2011
+        - name: to
+          in: query
+          description: To created date to filter employee list
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 9/8/2011
+      responses:
+        '200':
+          description: An employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+  /employees/updated:
+    get:
+      summary: Retrieve employees by filtering by updated date
+      description: >-
+        Retrieve employees based on updated dates. This date is stored in the
+        `updateddate` field. You can use only `from` for a start date, only `to`
+        for an end date, or combine `from` and `to` to specify a range of dates.
+      operationId: getEmployeesUpdate
+      tags:
+        - Employee
+      parameters:
+        - name: from
+          in: query
+          description: From updated date to filter employee list
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 9/8/2011
+        - name: to
+          in: query
+          description: To updated date to filter employee list
+          required: false
+          schema:
+            type: string
+            format: date-time
+            example: 9/8/2011
+      responses:
+        '200':
+          description: An employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+  '/employees/{employeeID}/evaluations':
+    get:
+      summary: Retrieve evaluations for an employee
+      description: Retrieve evaluations for an employee using the specified ID.
+      operationId: findEmployeeEvals
+      tags:
+        - Employee
+      parameters:
+        - name: employeeID
+          in: path
+          description: ID of employee.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An evaluation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+  '/employees/employeenumber/{employeeNumber}':
+    get:
+      summary: Retrieve a single employee by employee number
+      description: >-
+        Retrieve a single employee using the employee number. You can get a list
+        of employee numbers with `GET /employees`.
+      operationId: Find employee by number.
+      tags:
+        - Employee
+      parameters:
+        - name: employeeNumber
+          in: path
+          description: Number of employee to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: An employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmployeeResponse'
+    put:
+      summary: Update an employee using the employee number
+      operationId: putEmployeeNumber
+      tags:
+        - Employee
+      parameters:
+        - name: employeeNumber
+          in: path
+          description: Number of employee to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an employee using using the specified number and parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeePayload'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/EmployeePayload'
+      responses:
+        '200':
+          description: An employee ID and URL
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeUpdateResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/EmployeeUpdateResponse'
+  '/employees/{employeeID}/status':
+    put:
+      summary: Update an employee status
+      description: >-
+        Update an employee status, and optionally set the status of evaluations
+        for that employee to Cancelled.
+      operationId: updateEmployeeStatus
+      tags:
+        - Employee
+      parameters:
+        - name: employeeID
+          in: path
+          description: ID of employee.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          Update an employee status, and optionally set the status of
+          evaluations for that employee to Cancelled.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmployeeStatusUpdate'
+      responses:
+        '200':
+          description: An employee
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmployeeStatusUpdateResponse'
+  /evaluations:
+    get:
+      summary: Retrieve a list of evaluations
+      description: >-
+        Retrieve a list of evaluations. Returns the same general information
+        that is visible when viewing the evaluation.
+      operationId: getEvaluations
+      tags:
+        - Evaluation
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: An evaluation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Evaluation'
+  '/jobpostings/{jobpostingID}':
+    get:
+      summary: Retrieve a single job posting
+      description: >-
+        Retrieve a single job posting using the specified ID. You can get a list
+        of job posting IDs with `GET  /jobpostings/`.
+      operationId: jobPostingbyID
+      tags:
+        - Evaluation
+        - Job Posting
+      parameters:
+        - name: evaluationID
+          in: path
+          description: Evaluation ID
+          required: true
+          schema:
+            type: string
+        - name: jobpostingID
+          in: path
+          description: ID of job posting to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A job posting
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job%20Posting'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Job%20Posting'
+  /jobpostings:
+    get:
+      summary: Retrieve a list of job postings
+      description: Retrieve a list of job postings
+      operationId: getJobPosting
+      tags:
+        - Job Posting
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: A job posting
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Job%20Posting'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Job%20Posting'
+  /MasterProfiles:
+    get:
+      summary: Retrieve a list of master profiles
+      description: >
+        Retrieve a list of master profiles. A master profile stores applicant
+        information in Insight and the Online 
+
+        Hiring Center (OHC for hiring departments).
+
+        The master profile entity has a different resource than other entities.
+        It uses webapi instead of rest,
+
+        so requests start with: <br/>
+
+        `https://api.neogov.com/webapi` <br/>
+
+        Master profile returns JSON.  XML is not supported.
+      servers:
+        - url: 'https://api.neogov.com/webapi'
+        - url: 'https://api.qa.neogov.net/webapi'
+        - url: 'https://api.staging.neogov.net/webapi'
+        - url: 'https://api.uat.neogov.net/webapi'
+      operationId: getMasterProfile
+      tags:
+        - Master Profile
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: A list of master profiles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterProfileListResponse'
+    post:
+      summary: Create a master profile
+      operationId: postMasterProfile
+      servers:
+        - url: 'https://api.neogov.com/webapi'
+        - url: 'https://api.qa.neogov.net/webapi'
+        - url: 'https://api.uat.neogov.net/webapi'
+        - url: 'https://api.staging.neogov.net/webapi'
+      tags:
+        - Master Profile
+      requestBody:
+        description: Create a master profile using the specified parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MasterProfile'
+      responses:
+        '200':
+          description: A master profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterProfileSingleResponse'
+  '/MasterProfiles/{masterprofileID}':
+    get:
+      summary: Retrieve a single master profile
+      description: >-
+        Retrieve a single master profile using the specified ID. You can get a
+        list of master profile IDs with `GET MasterProfiles`.
+      servers:
+        - url: 'https://api.neogov.com/webapi'
+        - url: 'https://api.qa.neogov.net/webapi'
+        - url: 'https://api.staging.neogov.net/webapi'
+        - url: 'https://api.uat.neogov.net/'
+      operationId: Find master profiles by ID.
+      tags:
+        - Master Profile
+      parameters:
+        - name: masterprofileID
+          in: path
+          description: ID of master profile to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A master profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterProfileSingleResponse'
+    put:
+      summary: Update a master profile
+      operationId: putMasterProfile
+      servers:
+        - url: 'https://api.neogov.com/webapi'
+        - url: 'https://api.qa.neogov.net/webapi'
+        - url: 'https://api.staging.neogov.net/webapi'
+      tags:
+        - Master Profile
+      parameters:
+        - name: masterprofileID
+          in: path
+          description: ID of master profile to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          Update a master profile using the specified ID and parameters. You
+          must specify at least one parameter with the new value.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MasterProfile'
+      responses:
+        '200':
+          description: A master profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterProfileSingleResponse'
+  '/MasterProfiles/personid/{personID}':
+    get:
+      summary: Retrieve a single master profile using a person ID
+      description: >-
+        Retrieve a single master profile using the specified person ID. You
+        retrieve a person ID with `GET MasterProfiles/{masterprofileID}`.
+      servers:
+        - url: 'https://api.neogov.com/webapi'
+        - url: 'https://api.qa.neogov.net/webapi'
+        - url: 'https://api.staging.neogov.net/webapi'
+        - url: 'https://api.uat.neogov.net/webapi'
+      operationId: findMasterProfilebyPerson
+      tags:
+        - Master Profile
+      parameters:
+        - name: personID
+          in: path
+          description: Person ID of master profile to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A master profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MasterProfileSingleResponse'
+  '/MasterProfiles?$filter={fieldName} {fieldOperator} {fieldCondition}':
+    get:
+      summary: >-
+        Retrieve a list of master profiles by applying a condition to one or
+        more fields
+      description: >
+        You can specify $filter query string parameter
+
+        options to locate records, and limit the data that is returned, by
+        applying a condition to one or 
+
+        more fields.  When matching a string or date, use single quotation marks
+        (') around the value. 
+
+        The range of operators supported by filtering varies by the field
+        type.<br/>
+
+        You can limit profile results to current employees by passing the
+        `currentEmp` parameter: <br>
+         `https://api.neogov.com/webapi/MasterProfiles?$filter=currentEmp eq true`  <br>
+        You can limit profile results using the employee ID by passing the
+        `employeeId` parameter: <br>
+
+        `https://api.neogov.com/webapi/MasterProfiles?$filter=employeeId eq
+        '16210'`  <br>
+
+        You can limit profile results using the social security number by
+        passing the `ssnLast4` parameter: </br>
+
+        `https://api.neogov.com/webapi/MasterProfiles?$filter=ssnLast4 eq 8563
+        and employeeId eq '16210'`  <br>
+
+        You can filter profile results by dates by passing the `lastUpdated`
+        parameter. Include the  
+
+        `datetime` keyword before the date that you are testing, as shown in
+        this example: <br> 
+
+        `GET https://api.neogov.com/webapi/MasterProfiles?$filter=lastUpdated ge
+        datetime'2015-10-25T02:13:40Z'
+
+        and lastUpdated le datetime'2015-11-26T02:13:40Z' and currentEmp eq
+        true&$skip=10&$top=20` <br/><br/>
+      servers:
+        - url: 'https://api.neogov.com/webapi'
+        - url: 'https://api.qa.neogov.net/webapi'
+        - url: 'https://api.staging.neogov.net/webapi'
+        - url: 'https://api.uat.neogov.net/webapi'
+      operationId: getMPbyQuery
+      tags:
+        - Master Profile
+      parameters:
+        - name: fieldName
+          in: path
+          required: true
+          description: Field to query on
+          schema:
+            type: string
+            enum:
+              - currentEmp
+              - employeeId
+              - ssnLast4
+              - lastUpdated
+        - name: fieldOperator
+          in: path
+          required: true
+          description: Operator
+          schema:
+            type: string
+            enum:
+              - eq
+              - ne
+              - gt
+              - ge
+              - lt
+              - le
+              - and
+              - or
+              - not
+        - name: fieldCondition
+          in: path
+          required: true
+          description: >-
+            Field condition/value to test.  If you are testing a string,
+            surround it with single quotes. If you are testing a date, precede
+            the date with the `datetime` keyword.
+          schema:
+            type: string
+            example: 'true, false. ''Smith'', ''1563'', datetime''2015-10-25T02:13:40Z'''
+        - name: $top
+          in: path
+          description: Number of records to retrieve. Default is 10
+          example: 5
+          schema:
+            type: integer
+        - name: $skip
+          in: path
+          description: >-
+            Skip to N + 1 record number for the first returned record. Defaults
+            to 0
+          example: 2
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A master profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Master%20Profile'
+  '/personnelactions/hire/{hireID}':
+    get:
+      summary: Retrieve personnel action information
+      description: >-
+        Retrieve a single personnel action with the specified hire ID. You can
+        get a list of hire IDs with `GET
+        /personnelactions/recenthires?pagenumber=:pagenumber&startdate=:startdate`.
+      operationId: Find personnel action by ID.
+      tags:
+        - Personnel Action
+      parameters:
+        - name: hireID
+          in: path
+          description: Hire ID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A personnel action
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonnelAction'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PersonnelAction'
+  /personnelactions/recenthires:
+    get:
+      summary: 'Retrieve a list of hires using a page number, start date, and end date'
+      description: 'Retrieve a list of hires using a page number, start date, and end date.'
+      operationId: findPersonnelActionHires
+      tags:
+        - Personnel Action
+      parameters:
+        - name: pagenumber
+          in: query
+          description: Page number to retrieve. Default is page 1.
+          required: true
+          example: 1
+          schema:
+            type: integer
+        - name: startdate
+          in: query
+          description: >
+            Start date. Shows all hires since this date, or until the date
+            specified with `enddate`. UTC.
+
+
+            Examples (the second example uses an explicit UTC timezone offset of
+            -7 hours):
+
+
+            `2017-12-12T14:00:00`
+
+
+            `2018-12-12T14:00:00-0700` 
+          example: '2017-12-12T14:00:00'
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: endate
+          in: query
+          description: >
+            End date. Use with `startdate` to filter by a range of dates. UTC. 
+
+
+            Examples (the second example uses an explicit UTC timezone offset of
+            -7 hours):
+
+
+            `2018-11-12T14:00:00`
+
+
+            `2018-11-12T14:00:00-0700`
+          example: '2018-11-12T14:00:00-0700'
+          required: false
+          schema:
+            type: string
+            format: date-time
+      responses:
+        '200':
+          description: Personnel action recent hires
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonnelActionHireList'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PersonnelActionHireList'
+  /position:
+    get:
+      summary: Retrieve a list of positions
+      description: Retrieve a list of positions
+      operationId: getPositions
+      tags:
+        - Position
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+    post:
+      summary: Create a position
+      operationId: postPosition
+      tags:
+        - Position
+      requestBody:
+        description: >-
+          Create a  position using the specified parameters. The ID is assigned
+          when created. To associate the position with an existing class spec,
+          pass both classSpecificationCode and classSpecificationTitle.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Position'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Position'
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+  '/position/{positionID}':
+    get:
+      summary: Retrieve a single position
+      description: >-
+        Retrieve a single position using the specified ID. You can get a list of
+        position IDs with `GET /position`.
+      operationId: Find position by ID.
+      tags:
+        - Position
+      parameters:
+        - name: positionID
+          in: path
+          description: ID of position to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+    put:
+      summary: Update a position
+      operationId: putPosition
+      tags:
+        - Position
+      parameters:
+        - name: positionID
+          in: path
+          description: ID of position to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update a position using using the specified ID and parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Position'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Position'
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+  '/position/client/{clientID}':
+    get:
+      summary: Retrieve a list of positions associated with a client ID
+      description: >-
+        Retrieve a list of positions associated with a client ID. `clientId` is
+        one of fields returned by `GET /position`.
+      operationId: Find position by client ID.
+      tags:
+        - Position
+      parameters:
+        - name: clientID
+          in: path
+          description: Client ID.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PositionResponse'
+  /positioncontrol/:
+    get:
+      summary: Retrieve a list of positions
+      description: Retrieve a list of positions
+      operationId: getPositionControl
+      tags:
+        - Position Control
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionControlResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PositionControlResponse'
+    post:
+      summary: Create a position
+      operationId: postPositionControl
+      tags:
+        - Position Control
+      requestBody:
+        description: >-
+          Create a position using the specified parameters. The ID is assigned
+          when created. To associate the position with an existing class spec,
+          include both classSpecificationCode and classSpecificationTitle.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PositionControl'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PositionControl'
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionControlResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PositionControlResponse'
+  '/positioncontrol/{positioncontrolID}':
+    get:
+      summary: Retrieve a single position
+      description: >-
+        Retrieve a single position using the specified ID. You can get a list of
+        position IDs with `GET /positioncontrol`.
+      operationId: Find position control by ID.
+      tags:
+        - Position Control
+      parameters:
+        - name: positioncontrolID
+          in: path
+          description: ID of position control to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionControlResponse'
+    put:
+      summary: Update a position
+      operationId: putPositionControl
+      tags:
+        - Position Control
+      parameters:
+        - name: positioncontrolID
+          in: path
+          description: ID of position to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update a position using using the specified ID and parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PositionControl'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PositionControl'
+      responses:
+        '200':
+          description: A position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PositionControlResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/PositionControlResponse'
+  '/requisitions/{requisitionID}':
+    get:
+      summary: Retrieve a requisition
+      description: Retrieve a requisition.
+      operationId: getRequisition
+      tags:
+        - Requisition
+      parameters:
+        - name: requisitionID
+          in: path
+          description: ID of requisition to fetch.
+          required: true
+          example: 215b89a7caa336b0e90305d46b095f23
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A requisition
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Requisition'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Requisition'
+  /users:
+    get:
+      summary: Retrieve a list of users
+      description: Retrieve a list of users.
+      operationId: getUsers
+      tags:
+        - User
+      parameters:
+        - $ref: '#/components/parameters/maxPage'
+        - $ref: '#/components/parameters/pageNumber'
+      responses:
+        '200':
+          description: A user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+  '/users/{userID}':
+    get:
+      description: >-
+        Retrieve a single user using the specified ID. You can get a list of
+        user IDs with `GET /user`.
+      operationId: Find user by ID.
+      tags:
+        - User
+      parameters:
+        - name: userID
+          in: path
+          description: ID of user to fetch.
+          required: true
+          schema:
+            type: string
+      summary: Retrieve a single user
+      responses:
+        '200':
+          description: A user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+    put:
+      summary: Update a user
+      operationId: putUser
+      tags:
+        - User
+      parameters:
+        - name: userID
+          in: path
+          description: ID of user to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update a user using using the specified ID and parameters.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: ID and URL of updated user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserPutResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/UserPutResponse'
+  '/users/{userID}/departments':
+    get:
+      summary: Retrieve department information for a single user
+      description: >-
+        Retrieve the department(s) that the specified user is associated with. 
+        If a user is assigned to all departments, it returns null.
+      operationId: Find user department
+      tags:
+        - User
+      parameters:
+        - name: userID
+          in: path
+          description: ID of user to fetch.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A department
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+    put:
+      summary: Associate a department with the specified user
+      operationId: postUserDepartment
+      tags:
+        - User
+      parameters:
+        - name: userID
+          in: path
+          description: ID of user to assocate with department.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          Associate a department with the specified user. The department must
+          have a status of `Active`.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDepartment'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/UserDepartment'
+      responses:
+        '200':
+          description: A department
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/DepartmentResponse'
