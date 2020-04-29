@@ -3786,9 +3786,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DepartmentListResponse'
-            application/xml:
-              schema:
-                $ref: '#/components/schemas/DepartmentListResponse'
     post:
       summary: Create a department
       operationId: postDepartment
