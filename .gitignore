@@ -21,7 +21,7 @@ yarn-error.log*
 
 # dist
 
-/dist/*
+/dist/**
 /dist/report.html
 dist/report.html
 dist/**
