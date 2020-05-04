@@ -24,3 +24,4 @@ yarn-error.log*
 /dist/*
 /dist/report.html
 dist/report.html
+dist/**
