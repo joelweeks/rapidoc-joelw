@@ -4,7 +4,7 @@ import logoTemplate from '@/templates/logo-template';
 /* eslint-disable indent */
 export default function headerTemplate() {
   return html`
-  <div class="row header regular-font" style="padding:8px 4px 8px 4px;min-height:48px;">
+  <div class="row header regular-font" style="padding:8px 4px 8px 4px;min-height:100px;">
     <div class="only-large-screen-flex" style="align-items: center;">
       <slot name="logo" class="logo">
         ${logoTemplate('height:36px;width:36px;margin-left:5px')}
