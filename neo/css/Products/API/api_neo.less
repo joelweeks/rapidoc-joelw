@@ -1,0 +1,164 @@
+// API Documentation
+// ---
+// Styles for API documentation
+
+.background-accented {
+	background-color: #fafafa;
+}
+
+.form-section {
+	border-bottom: 1px solid @sidemenu-hr;
+	padding: 20px 20px 20px;
+
+	.input-group-addon {
+		background-color: @white !important;
+		line-height: 12px;
+
+		+ .input-group-addon.input-group-addon-prefix {
+			border-left: 0 none;
+			padding-left: 0;
+		}
+	}
+
+	.input-group-addon.input-group-addon-prefix {
+		color: @gray-light;
+		font-weight: @font-weight-medium;
+		padding-right: 0;
+		border-right: none;
+
+		+ input {
+			padding-left: 0;
+		}
+	}
+}
+
+.documentation {
+	.side-content {
+		background-color: #283945;
+	}
+
+	#markdown-toc {
+		padding-top: 10px;
+		padding-bottom: 10px;
+
+		a {
+			&,
+			&:link,
+			&:visited {
+				color: #676767;
+				text-decoration: none;
+				border-bottom: 1px solid #cacaca;
+			}
+
+			&:hover,
+			&:active {
+				color: #54C4CA;
+			}
+		}
+	}
+}
+
+.links-list {
+	padding: 0 0 30px;
+
+	a {
+		&,
+		&:link,
+		&:visited {
+			color: #ffffff;
+			padding: 5px 5px 5px 50px;
+			display: block;
+		}
+
+		&:hover,
+		&:active,
+		&:focus {
+			// color: darken(@text-color, 20%);
+		}
+	}
+
+	// Angular returns current page, this highlights in toc
+	.active {
+		a {
+			&,
+			&:link,
+			&:visited {
+				border-left: 10px solid #c84e29;
+				padding-left: 40px;
+				background-color: #324b5c;
+			}
+		}
+	}
+
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+
+		li {
+			margin: 0;
+			padding: 0;
+
+			li {
+				margin: 0;
+				padding: 0;
+			}
+
+		}
+	}
+
+	h3 {
+		padding: 30px 30px 0;
+	}
+}
+
+.top-navbar {
+	.clearfix();
+
+	.navbar-nav {
+		padding: 0 20px;
+		margin: 0;
+
+		li {
+			padding: 0;
+			margin: 0;
+			display: inline-block;
+		}
+	}
+
+	a {
+		color: @white;
+		text-decoration: none;
+		display: block;
+		padding: 11px;
+
+		&:hover,
+		&:active {
+			color: rgba(255,255,255,0.7);
+			text-decoration: none;
+		}
+	}
+}
+
+@media screen and (max-width: @screen-md) {
+	.sidemenu-open-mobile {
+		.side-content {
+			display: block !important;
+		}
+
+		.main-content {
+			display: none !important;
+		}
+	}
+}
+
+.link-heading {
+	color: #ffffff;	
+}
+
+
+a {
+	color: #165f7a;
+	}
+		
+	

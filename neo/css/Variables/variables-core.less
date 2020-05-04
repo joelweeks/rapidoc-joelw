@@ -1,0 +1,817 @@
+// ASSETS PATHS
+
+// Proper calling for these assets variables is e.g. background-url: url('@{images-path}/flags.png');
+
+// TODO: When we finalize our Gulp/Node builder/watcher of static CSS we will use this variable
+//       to easily switch relations between static assets content. While we are splitting this
+//       for next sprint it is breaking the access to Assets because of folder depth.
+
+@assets-path: "/Client/PatternLibrary/Styles/Assets";
+
+@fonts-path: "@{assets-path}/Fonts";
+@font-proxima-nova-path: "https://d2iqo0i0q1jxbv.cloudfront.net/production/hrcloud/GeneratedBundles/assets/App/Fonts/ProximaNova";
+@font-journal-path: "@{fonts-path}/Journal";
+@font-icon-path: "@{fonts-path}/HRCoreIcons";
+@graphics-path: "@{assets-path}/Graphics";
+@images-path: "@{assets-path}/Images";
+
+// TODO: Not yet sure if we are actually using this
+
+@chosen-sprite-path: "@{images-path}/chosen-sprite.png";
+
+// From current CoreHR
+@headerBackgroundColor: #53C4CC;
+@accentColor: #48C3D4;
+@lightHeaderBackgroundColor: #64CAD1;
+@textColor: #4d4d4d;
+@grayTextColor: #989897;
+@topPanelDarkTextColor: #29717c;
+@topPanelHeight: 128px;
+@topPanelHeightSmall: 90px;
+@topMainPanelHeight: 188px;
+@mainNavHeight: 48px;
+@leftPanelWidth: 48px;
+@contentPadding: 40px;
+@menuBorderColor: @toolbar-border;
+@defaultBorderColor: #E0E1E2;
+@menuBackgroundColor: #F4F9FA;
+@boxBackgroundColor: #F0F8FB;
+@bodyBackgroundColor: #424143;
+@separatorColor: #eff1f2;
+@infoColor: #ed4f2d;
+@errorColor: #ed512a;
+@disabledColor: #ccc;
+@enableColor: #4e4c4a;
+@activeTextColor: White;
+@checkboxBackgroundColor: #E5E7E8;
+@checkboxCheckedBackgroundColor: #B2D13A;
+@segmentedControlBorderRadius: 3px;
+@segmentedControlBorderColor: #cacaca;
+@headerColor: #FFFFFF;
+@applicatDetailHeaderColor: #47C3D5;
+@recordViewPadding: 63px;
+@recordViewHeaderSeparatorColor: #e6e7e7;
+@inputBorderColor: #E6E7E8;
+@cellPadding: 15px;
+@chartOnboardingColor: #71D14C;
+@tryimport: #fafaf9;
+@signup-enagement-bg: #f9f9f9;
+
+@minWidthLarge: 1200px;
+@maxWidthMedium: @minWidthLarge - 1;
+@minWidthMedium: 992px;
+@maxWidthSmall: @minWidthMedium - 1;
+@minWidthSmall: 768px;
+@maxWidthExtraSmall: (@minWidthSmall - 1);
+@minWidthExtraSmall: 320px;
+
+@flyout-padding: 42px;
+@flyout-mobile-padding: 18px;
+
+// New variables which should replace top two
+@flyout-padding-top: 32px;
+@flyout-padding-top-mobile: 12px;
+@flyout-padding-left: 42px;
+@flyout-padding-left-mobile: 18px;
+
+// Variables
+
+// PRODUCT COLORS
+
+// Product - Assets
+@extra-assets: #32b885;
+@extra-assets-accent: #126C4A;
+@extra-assets-toolbar-border: #9ed5b5;
+@extra-assets-toolbar-background: #eff8f3;
+
+// Product - Benefits
+@extra-benefits: #e88631;
+@extra-benefits-accent: #fcb415;
+@extra-benefits-toolbar-border: #f4c59c;
+@extra-benefits-toolbar-background: #fff8ed;
+
+// Product - Culture / NPS
+@extra-culture: #7d73ab;
+@extra-culture-accent: #978fbc;
+@extra-culture-toolbar-border: #cbc7dd;
+@extra-culture-toolbar-background: #f7f6f9;
+
+// Product - Competition / Initiatives
+@extra-competition: #edab27;
+@extra-competition-accent: #edab27;
+@extra-competition-toolbar-border: #fcdfa6;
+@extra-competition-toolbar-background: #fef9ed;
+
+// Product - CoreHR
+@extra-corehr: #54c2c9;
+@extra-corehr-accent: #40989D;
+@extra-corehr-toolbar-border: #b2dfe7;
+@extra-corehr-toolbar-background: #f1fafb;
+
+// Product - Employee Referral
+@extra-employee-referral: #9f7bad;
+@extra-employee-referral-accent: #7A1B53;
+@extra-employee-referral-toolbar-border: #d9cade;
+@extra-employee-referral-toolbar-background: #f7f5f9;
+
+// Product - Health
+@extra-health: #46BEB8;
+@extra-health-accent: #3AB6C5;
+@extra-health-toolbar-border: #b2dfe7;
+@extra-health-toolbar-background: #f1fafb;
+
+// Product - Leave Requests
+@extra-leave-requests: #8ec45d;
+@extra-leave-requests-sub-text-color: #476831;
+@extra-leave-requests-accent: #B3D239;
+@extra-leave-requests-toolbar-border: #bbdc9e;
+@extra-leave-requests-toolbar-background: #f4f8e7;
+
+// Product - Offboard
+@extra-offboard: #2da6c4;
+@extra-offboard-accent: #397483;
+@extra-offboard-toolbar-border: #9dd0e7;
+@extra-offboard-toolbar-background: #f2fafd;
+
+// Product - Onboard
+@extra-onboard: #885d80;
+@extra-onboard-accent: #c278a4;
+@extra-onboard-toolbar-border: #e5c8db;
+@extra-onboard-toolbar-background: #f0e9ed;
+
+// Product - Ratings / Feedback
+@extra-ratings: #52bdd6;
+@extra-ratings-accent: #52bdd6;
+@extra-ratings-toolbar-border: #a6dce2;
+@extra-ratings-toolbar-background: #eef8fa;
+
+// Product - Status Update
+@extra-status-update: #C689BC;
+@extra-status-update-accent: #9752A0;
+@extra-status-update-toolbar-border: #E4CBE3;
+@extra-status-update-toolbar-background: #F4EDF5;
+
+// Product Theme - Tasks
+@extra-tasks: #586872;
+@extra-tasks-accent: #7C8892;
+@extra-tasks-toolbar-border: #D0D0CF;
+@extra-tasks-toolbar-background: #EDF0F2;
+
+// Product - Timesheets
+@extra-timesheets: #f15c61;
+@extra-timesheets-accent: #b44043;
+@extra-timesheets-toolbar-border: #fac2b9;
+@extra-timesheets-toolbar-background: #feefeb;
+
+// Product - Training Videos
+@extra-training-videos: #ea6362;
+@extra-training-videos-accent: #f29783;
+@extra-training-videos-toolbar-border: #f7c1c0;
+@extra-training-videos-toolbar-background: #fef9f9;
+
+// Product - Clean Theme
+@extra-clean: @white;
+@extra-clean-accent: #74736F;
+@extra-clean-toolbar-border: @white;
+@extra-clean-toolbar-background: #E7E6E5;
+
+// Product - Forms Theme / Side Theme
+@extra-side: #79858D;
+@extra-side-accent: #74736F;
+@extra-side-toolbar-border: fade(#d4d4d2, 20%);
+@extra-side-toolbar-background: #fcfcfc;
+
+// Product - Social / Signup
+
+//Product - Workmates
+@extra-workmates: #37b0be;
+
+// Product - Social
+@extra-social: @extra-workmates;
+
+// Status colors
+@status-available: #37b2c0;
+
+@status-outofoffice: #34b3c1;
+@status-sick: #f07559;
+@status-remote: #dc5b66;
+@status-onvacation: #48b349;
+@status-businesstrip: #e78625;
+@status-parental: #8e61a0;
+
+// Standard product colors
+@main-dark-blue: #586872;
+@main-light-blue: #54C4CA;
+@main-light-gray: #F9FAFA;
+
+@aux-orange: #E96A25;
+@aux-green: #B2D237;
+@aux-dark-blue: #434E56;
+@aux-light-gray: #F0F8F8;
+
+@gray-dark-hard: #272725;
+@gray-darker: #504D4D;
+@gray-dark: #74726E;
+@gray-text: #676767;
+
+// grid color
+@gray: #969696;
+@gray-light: #BFBDBA;
+@gray-lighter: #D3D3D1;
+@gray-light-soft: #E8E6E5;
+@gray-light-medium: #f9f9f9;
+@gray-extra-light: #FCFCFC;
+@gray-extra-dark: #ECEBEA;
+
+@extra-blue: #40B4C3;
+@extra-red: #EE512A;
+@extra-yellow: #F0B71E;
+@extra-orange: #EE8F21;
+@extra-violet: #C079A4;
+@extra-green: #78A417;
+
+@extra-success: #B3D239;
+@extra-orange-overdue: #EA7333;
+@extra-yellow-overdue-pending: #F2BC30;
+@extra-purple-skipped: #C178A4;
+@extra-info-light: #F8FAFA;
+@extra-info-dark: #6D7D85;
+@extra-success-light: #FBFCF7;
+@extra-success-dark: #B2D038;
+@extra-warning-light: #F8FAFA;
+@extra-warning-dark: #FFFBF5;
+@extra-danger-light: #FFF8F6;
+@extra-danger-dark: #EE512A;
+
+@leaderboard-gold: #f0b722;
+@leaderboard-silver: #97938f;
+@leaderboard-bronze: #d26f24;
+
+@header-bar-link: #29727D;
+@header-bar-hover: darken(#29727D, 25%);
+@header-bar-light-link: @gray-dark;
+@header-bar-light-hover: @header-bar-light-link;
+
+@header-subtitle: #38888F;
+@header-favorite: #40989D;
+@header-favorite-hover: @white;
+
+@extra-facebook: #3b5998;
+@extra-twitter: #00ACED;
+@extra-linkedin: #007BB6;
+@extra-skype: #149ed9;
+@extra-yammer: #0072C6;
+@extra-google-plus: #DD4B39;
+@extra-office365: #e84024;
+@extra-hangouts: #1caf5c;
+@extra-youtube: #e52d27;
+@extra-skype: #009FE3;
+@extra-vimeo: #1ab7ea;
+@extra-yahoo: #32007F;
+@extra-vine: #00B489;
+@extra-paypal: #222D65;
+@extra-exchange: #0673BA;
+@extra-slack: #74726e;
+
+@dropdown-hover: #F8F8F9;
+@dropdown-border: #BEBCB9;
+@sidemenu-hr: #E5E4E3;
+
+// CALENDAR COLORS
+@calendar-purple: #c078a4;
+@calendar-red: #ee7e64;
+@calendar-orange: #f0b700;
+@calendar-green: #ACCD37;
+@calendar-gray: #586872;
+@calendar-lightBlue: #5ebeda;
+
+@event-employee-birthdays: @calendar-purple;
+@event-employee-aniversaries: @calendar-red;
+@event-user-tasks: @calendar-orange;
+@event-timeoffs: @calendar-green;
+@event-company-events: @calendar-lightBlue;
+@event-holidays: #17b882;
+
+// Note: this is Window height, and standard Chrome on Laptop with 1280x800 has visible
+// window size of 1280x675 when bookmarks bar, address bar and tabs are open.
+@sidebar-responsive-height: 650px;
+@laptop-height: 800px;
+@calendar-height-breakpoint: 800px;
+
+// Toolbar Colors
+@toolbar-border: #B7E3EB;
+@toolbar-background: #F2FAFC;
+@toolbar-hover-active: rgba(0, 0, 0, .07);
+@toolbar-icon-color: #7b878e;
+@toolbar-dropicon-color: #B8C4CD;
+@toolbar-search-background: #6b777d;
+@toolbar-search-button-bg: #728087;
+@toolbar-search-icon-color: #4F5F68;
+@toolbar-filter-link: #8F8D89;
+@toolbar-filter-link-hover: black;
+
+// Grid Colors
+@grid-background-selected: #fbfbfb;
+@grid-background-alt: #F9FCFD;
+@grid-border-color: #EFEEEE;
+@grid-background-first-level: #7B888F;
+@grid-background-second-level: #9EAAB3;
+@grid-background-results: #F5F6F5;
+@grid-flyout-form-bg: #FCFCFB;
+
+// Progress bar
+@progress-background: #f1f1f1;
+@progress-modal-background: #F6F6F6;
+@progress-foreground-danger: @extra-red;
+@progress-foreground-warning: @extra-orange;
+@progress-foreground-success: @extra-success;
+
+// INPUT
+
+// Grays
+@black: #000;
+@sidebar-bg-color: #282828;
+@sidebar-color: #757370;
+@white: #fff;
+@transparent: transparent;
+
+// Brand colors
+@brand-primary: @main-light-blue;
+@brand-darker: #586872;
+@brand-light: #f2d6ba;
+@brand-lighter: #f4f1ed;
+@brand-secondary: @white;
+@brand-success: @extra-success;
+@brand-warning: #f3b926;
+@brand-danger: #eb6a25;
+@brand-info: #6d7d86;
+
+// Content colors
+@post-titles: @brand-darker;
+@gray-links: #808080;
+@success-icon: @brand-success;
+@share-icon: #bccbd3;
+@footer-background: #f1f1f1;
+@gray-ultralight: #f8f8f8;
+@border-menu: #262626;
+@border-menu-separator: #3F3F3F;
+@input-field-login: #FFF5E4;
+@yellow-high: #f3b926;
+
+// Scaffolding
+@body-bg: #ffffff;
+@signup-bg: #F1F1F2;
+@text-color: @gray-text;
+@navbar-color: #687478;
+
+// Links
+@link-color: @brand-primary;
+@link-hover-color: darken(@link-color, 15%);
+
+// Sidebar breakpoints
+
+@sidebar-breakpoint-large: 860px;
+@sidebar-breakpoint-medium: 670px;
+@sidebar-breakpoint-small: 540px;
+@sidebar-breakpoint-tiny: 400px;
+
+// Typography.com fonts
+// Full font package is 472KB with all 12 font styles.
+// Currently active package is 195KB in size with 5 active font styles.
+// Before activating, remember that each font style is adding approx. 40KB to the size.
+// Italic version is active only for Normal version of the font
+// Font weights active on cloud.typography.com
+// 300 - light
+// 400 - book + italic
+// 500 - medium
+// 700 - bold
+// Possible ones would be extra light (200) and black (800)
+
+// Font family styles
+
+@font-family-sans-serif: 'proxima-nova', Helvetica, Arial, sans-serif;
+@font-family-serif: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, 'Times New Roman', Times, serif;
+@font-family-monospace: Monaco, Menlo, Consolas, "Courier New", monospace;
+@font-family-base: @font-family-sans-serif;
+
+@font-size-base: 14px;
+@font-size-large: 18px;
+@font-size-small: 12px;
+
+@font-weight-light: 300;
+@font-weight-book: 400;
+@font-weight-medium: 600;
+@font-weight-bold: 700;
+@font-weight-normal-icon: normal;
+
+@line-height-base: 24px;
+@line-height-computed: 24px;
+
+@headings-font-family: @font-family-base;
+@headings-line-height: 1;
+
+// HRCore Icons
+@icon-font-prefix: icon;
+@icon-font-version: "0.1";
+@icon-font-small: "hrcore-small";
+@icon-font-medium: "hrcore-medium";
+@icon-font-border-color: #eee;
+@icon-font-inverse: #fff;
+@icon-font-li-width: (30em / 14);
+
+// Components
+// Based on 14px font-size and 1.428 line-height (~20px to start)
+
+@padding-base-vertical: 8px;
+@padding-base-horizontal: 12px;
+
+@padding-large-vertical: 11px;
+@padding-large-horizontal: 16px;
+
+@padding-small-vertical: 5px;
+@padding-small-horizontal: 10px;
+
+@line-height-large: 1.33;
+@line-height-small: 1.5;
+
+@border-radius-base: 4px;
+@border-radius-large: 4px;
+@border-radius-small: 3px;
+
+@component-active-bg: @brand-primary;
+
+@caret-width-base: 4px;
+@caret-width-large: 5px;
+
+// Tables
+@table-cell-padding: 12px;
+@table-condensed-cell-padding: 5px;
+
+@table-bg: transparent;
+@table-bg-accent: @gray-ultralight;
+@table-bg-hover: @gray-ultralight;
+@table-bg-active: @table-bg-hover;
+
+@table-border-color: #ddd;
+
+// Buttons
+
+@btn-font-weight: @font-weight-book;
+
+@btn-default-color: @white;
+@btn-default-bg: #989490;
+@btn-default-border: #989490;
+
+@btn-primary-color: @white;
+@btn-primary-bg: @brand-primary;
+@btn-primary-border: @brand-primary;
+
+@btn-darker-color: @white;
+@btn-darker-bg: @brand-darker;
+@btn-darker-border: @brand-darker;
+
+@btn-success-color: @white;
+@btn-success-bg: @brand-success;
+@btn-success-bg-hover: #a9c920;
+@btn-success-border: @brand-success;
+
+@btn-warning-color: @white;
+@btn-warning-bg: @brand-warning;
+@btn-warning-border: @brand-warning;
+
+@btn-danger-color: @white;
+@btn-danger-bg: @brand-danger;
+@btn-danger-border: @brand-danger;
+
+@btn-info-color: @white;
+@btn-info-bg: @brand-info;
+@btn-info-border: @brand-info;
+
+@btn-link-disabled-color: @gray-light;
+
+// Navigation Tabs
+@nav-tabs: #F7F7F7;
+@nav-tab-status: #48B549;
+
+// Forms
+@input-bg: @white;
+@input-bg-disabled: #FAFAF9;
+
+@input-color: #6d6e71;
+@input-border: @gray-lighter;
+@input-border-radius: @border-radius-base;
+@input-border-hover: @gray;
+@input-border-focus: @main-light-blue;
+
+@input-bg-light-gray: #F5F5F7;
+
+@input-selected-dark: #79858d;
+@input-color-placeholder: @gray-light;
+
+@input-height-base: (42px);
+@input-height-large: (47px);
+@input-height-small: (floor(@font-size-small * @line-height-small) + (@padding-small-vertical * 2) + 2);
+
+@legend-color: @gray-dark;
+@legend-border-color: #e5e5e5;
+
+@input-group-addon-bg: @gray-lighter;
+@input-group-addon-border-color: @input-border;
+
+// COMPONENT VARIABLES
+
+// Z-index master list
+// Used for a bird's eye view of components dependent on the z-axis
+// Try to avoid customizing these :)
+
+@zindex-navbar: 1000;
+@zindex-dropdown: 1000;
+@zindex-popover: 1010;
+@zindex-tooltip: 1030;
+@zindex-navbar-fixed: 1030;
+@zindex-modal-background: 1040;
+@zindex-modal: 1050;
+
+// Media queries breakpoints
+// Extra small screen / phone
+@screen-xxs: 360px;
+@screen-xs: 480px;
+@screen-phone: @screen-xs;
+
+// Small screen / tablet
+@screen-sm: 769px;
+// iPad 2 had issues with having 768 defined, this fixed them
+@screen-tablet: @screen-sm;
+
+// Medium screen / desktop
+@screen-md: 992px;
+@screen-desktop: @screen-md;
+
+// Large screen / wide desktop
+@screen-lg: 1200px;
+@screen-lg-desktop: @screen-lg;
+
+@screen-xl: 1440px;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xs-max: (@screen-sm - 1);
+@screen-sm-max: (@screen-md - 1);
+@screen-md-max: (@screen-lg - 1);
+
+// Grid system
+// Number of columns in the grid system
+@grid-columns: 24;
+
+// Padding, to be divided by two and applied to the left and right of all columns
+@grid-gutter-width: 10px;
+
+// Point at which the navbar stops collapsing
+@grid-float-breakpoint: @screen-tablet;
+
+// Navs
+@nav-link-padding: 10px 15px;
+@nav-link-hover-bg: @gray-lighter;
+
+@nav-disabled-link-color: @gray-light;
+@nav-disabled-link-hover-color: @gray-light;
+
+@nav-open-link-hover-color: @white;
+@nav-open-caret-border-color: @white;
+
+// Tabs
+@nav-tabs-border-color: transparent;
+
+@nav-tabs-link-hover-border-color: transparent;
+
+@nav-tabs-active-link-hover-bg: @brand-primary;
+@nav-tabs-active-link-hover-color: @brand-darker;
+@nav-tabs-active-link-hover-border-color: transparent;
+
+@nav-tabs-justified-link-border-color: transparent;
+@nav-tabs-justified-active-link-border-color: @body-bg;
+
+// Pills
+@nav-pills-active-link-hover-bg: @brand-primary;
+@nav-pills-active-link-hover-color: @white;
+@nav-pills-bg: @gray-lighter;
+@nav-pills-color: @gray;
+
+// Pagination
+@pagination-bg: @white;
+@pagination-border: #ddd;
+
+@pagination-hover-bg: @gray-lighter;
+
+@pagination-active-bg: @brand-primary;
+@pagination-active-color: @white;
+
+@pagination-disabled-color: @gray-light;
+
+// Form states and alerts
+@state-warning-text: #f0b722;
+@state-warning-bg: #fffaf4;
+@state-warning-border: #f0b722;
+
+@state-danger-text: #ed512a;
+@state-danger-bg: #fff7f5;
+@state-danger-border: #ed512a;
+
+@state-success-text: @brand-success;
+@state-success-bg: #fafbf6;
+@state-success-border: @brand-success;
+
+@state-info-text: #6d7d84;
+@state-info-bg: #f7f9f9;
+@state-info-border: #6d7d84;
+
+// Labels
+
+@label-default-bg: @gray-light;
+@label-primary-bg: @brand-primary;
+@label-success-bg: @brand-success;
+@label-info-bg: @brand-info;
+@label-warning-bg: @brand-warning;
+@label-danger-bg: @brand-danger;
+
+@label-color: @white;
+@label-link-hover-color: @white;
+
+// Alerts
+@alert-padding: 15px;
+@alert-border-radius: @border-radius-base;
+@alert-link-font-weight: @font-weight-bold;
+
+@alert-success-bg: @state-success-bg;
+@alert-success-text: @state-success-text;
+@alert-success-border: @state-success-border;
+
+@alert-info-bg: @state-info-bg;
+@alert-info-text: @state-info-text;
+@alert-info-border: @state-info-border;
+
+@alert-warning-bg: @state-warning-bg;
+@alert-warning-text: @state-warning-text;
+@alert-warning-border: @state-warning-border;
+
+@alert-danger-bg: @state-danger-bg;
+@alert-danger-text: @state-danger-text;
+@alert-danger-border: @state-danger-border;
+
+// Badges
+@badge-color: @white;
+@badge-link-hover-color: @white;
+@badge-bg: @extra-orange;
+
+@badge-active-color: @brand-primary;
+@badge-active-bg: @white;
+
+@badge-font-weight: @font-weight-medium;
+@badge-line-height: 1;
+@badge-border-radius: 5px;
+
+// Close
+@close-color: #000;
+@close-font-weight: @font-weight-bold;
+@close-text-shadow: 0 1px 0 @white;
+
+// Miscellaneous
+// Hr border color
+@hr-border: @gray-lighter;
+
+// Horizontal forms & lists
+@component-offset-horizontal: 180px;
+
+// Container sizes
+// Small screen / tablet
+@container-tablet: ((720px + @grid-gutter-width));
+
+// Medium screen / desktop
+@container-desktop: ((940px + @grid-gutter-width));
+
+// Large screen / wide desktop
+@container-lg-desktop: ((1140px + @grid-gutter-width));
+
+// Large screen / wide desktop
+@container-xxl-desktop: (100%);
+
+// Type
+@text-muted: @gray-light;
+@abbr-border-color: @gray-light;
+@headings-small-color: @gray-light;
+@blockquote-small-color: @gray-light;
+@blockquote-border-color: @gray-lighter;
+@page-header-border-color: @gray-lighter;
+
+@panel-bg: #fafafb;
+@panel-body-padding: 15px;
+@panel-border-radius: @border-radius-base;
+
+// Border color for elements within panel
+@panel-inner-border: #e8e7e6;
+@panel-footer-bg: #fff;
+
+@panel-default-text: @gray-dark;
+@panel-default-border: #ddd;
+@panel-default-heading-bg: #fff;
+
+@panel-primary-text: #fff;
+@panel-primary-border: @brand-primary;
+@panel-primary-heading-bg: @brand-primary;
+
+@panel-success-text: @state-success-text;
+@panel-success-border: @state-success-border;
+@panel-success-heading-bg: @state-success-bg;
+
+@panel-info-text: @state-info-text;
+@panel-info-border: @state-info-border;
+@panel-info-heading-bg: @state-info-bg;
+
+@panel-warning-text: @state-warning-text;
+@panel-warning-border: @state-warning-border;
+@panel-warning-heading-bg: @state-warning-bg;
+
+@panel-danger-text: @state-danger-text;
+@panel-danger-border: @state-danger-border;
+@panel-danger-heading-bg: @state-danger-bg;
+
+// Chosen variables
+@chosen-background: #fff;
+@chosen-border: @input-border;
+@chosen-border-radius: @input-border-radius;
+@chosen-multi-border-radius: 0;
+@chosen-box-shadow: none;
+@chosen-drop-border: @gray-light;
+@chosen-drop-box-shadow: none;
+@chosen-drop-zindex: 1060;
+@chosen-focus-border: #BDBBB8;
+@chosen-focus-box-shadow: none;
+@chosen-focus-transition: ~"border linear .2s, box-shadow linear .2s";
+@chosen-height: @input-height-base;
+@chosen-multi-height: @input-height-base + 6px;
+
+
+// Variables from Kendo Variables - these should be refactored after problem solving
+@widget-text-color: #989798;
+@input-text-color: @widget-text-color;
+
+// Tooltip variables
+@tooltip-arrow-color: @gray-darker;
+@tooltip-bg: @gray-darker;
+@tooltip-opacity: 1;
+@tooltip-max-width: 400px;
+@tooltip-arrow-width: 8px;
+
+// form label info icon
+@form-label-info-icon: #c0bebb;
+
+// Content Symbols
+
+@character-emdash: "\2014";
+@character-nbsp: "\00A0";
+@character-bullet: "\2022";
+
+// Trial Percentage
+
+@trial-period-circle-size: 34px;
+@trial-period-inset-circle-size: 26px;
+@trial-period-circle-background: @sidebar-color;
+@trial-period-active-color: @brand-success;
+@trial-period-circle-insert-background: @sidebar-bg-color;
+@trial-period-counter: 0;
+@trial-period-increment: 180deg / 100;
+
+// Notifications
+
+@notification-background: #2F302F;
+@notification-text-content: #bdbec1;
+@notification-timestamp: #818385;
+@notification-border: #3E3D3E;
+
+// Profile images
+@image-xs: 28px;
+@image-s: 36px;
+@image-m: 44px;
+@image-l: 60px;
+@image-xl: 124px;
+@image-xxl: 154px;
+@image-gray-border: #515B5E;
+@image-light-gray-border: @gray-light-soft;
+
+//Widgets
+@widget-new-hire: #65c6ce;
+@widget-congrats: #ffca64;
+@widget-thanks: #e88980;
+@gray-light-background: #e9ebeb;
+
+//Scrollbar
+@scrollbar-default-width: 16px;
+@scrollbar-default-color: darken(@white, 20%);
+@scrollbar-default-border-width: 3px;
+@scrollbar-dark-width: 10px;
+@scrollbar-dark-color: darken(@gray-dark, 15%);
+
+@scrollbar-border-top: 2px 0;
+@scrollbar-border-none: 0;
+
+@scrollbar-thin-width: 4px;
+@scrollbar-thin-color: @gray;

@@ -1,0 +1,644 @@
+//  This file is a result of refactoring after 2 years that software has been in development
+//  Its purpose is to finally solve issues with scrollable content. This is updating the old
+//  .content with .sidemenu and .main-content and changing the layout for it to display: table;
+//
+//  The reason for it is that we need to be able to scroll either inside the single column,
+//  or to scroll all of them.
+
+//  Layout for content with rows.
+
+.content-with-rows {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100%;
+
+    @media screen and (max-width: @screen-md) {
+        &.full-mobile-scroll {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+
+            .content-row {
+                display: block;
+                height: auto;
+                position: initial;
+            }
+
+            .content-lock {
+                position: initial;
+                overflow-y: visible;
+            }
+
+            .content-scroll {
+                position: initial;
+                overflow-y: visible;
+            }
+        }
+    }
+}
+
+.inner-fixer {
+    display: table-cell;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.content-row {
+    display: table-row;
+    width: 100%;
+    position: relative;
+
+    &.switcher-row,
+    &.toolbar-row {
+        height: 47px;
+
+        @media screen and (max-width: @screen-md) {
+            height: 41px;
+        }
+    }
+
+    &.section-title-row {
+        height: 37px;
+    }
+
+    &.switcher-row {
+        display: none;
+
+        @media screen and (max-width: @screen-md) {
+            display: table-row;
+        }
+    }
+
+    &.mobile-profile-row {
+        display: none;
+        height: 47px;
+
+        @media screen and (max-width: @screen-md) {
+            display: table-row;
+        }
+    }
+
+    &.submenu-row {
+        display: none;
+        height: 47px;
+
+        @media screen and (max-width: @screen-md) {
+            display: table-row;
+        }
+    }
+
+    .inner-fixer {
+        position: relative;
+    }
+}
+
+.content-lock {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+
+// Chrome 49 and lower did not work properly with absolute positioning
+
+.ch-chrome40,
+.ch-chrome41,
+.ch-chrome42,
+.ch-chrome43,
+.ch-chrome44,
+.ch-chrome45,
+.ch-chrome46,
+.ch-chrome47,
+.ch-chrome48,
+.ch-chrome49 {
+    &:not(.k-edge) {
+        .inner-fixer {
+            position: relative;
+
+            > .content-scroll {
+                display: inline-block;
+            }
+        }
+
+        .content-lock {
+            position: absolute;
+        }
+    }
+}
+
+
+//  Firefox has table layout issues, but from version 30 it is giving us
+//  option to use absolute positioning inside table rows.
+
+.ch-firefox {
+    .content-lock {
+        position: absolute;
+    }
+}
+
+//  The old "content" class has been updated to .content-scroll, it is literal
+//  but it is now connected to other .content classes and is now handling scrolling
+//  for new layout, with responsive fixes too.
+//
+//  I have made overflow-y always to be visible. The "auto" option is constantly
+//  making our flyouts to jump left-right if they load dynamic content or such.
+
+.content-scroll {
+    display: block;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+
+    @media screen and (max-width: @screen-md) {
+        overflow-y: visible;
+    }
+
+    .co-upload-file {
+        padding: 25px;
+    }
+}
+
+.content-grid {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+
+    &.chart-active {
+        overflow-y: auto;
+    }
+
+    @media screen and (max-width: @screen-md) {
+        overflow-y: visible;
+    }
+}
+
+.row {
+    .content-grid {
+        position: initial;
+        top: auto;
+        left: auto;
+        height: auto;
+        overflow-y: visible;
+
+        &.chart-active {
+            overflow-y: scroll;
+            position: relative;
+        }
+
+        .k-grid {
+            .k-pager-wrap {
+                height: 51px;
+            }
+
+            margin-bottom: 20px;
+        }
+    }
+}
+
+//	Layout for content with columns.
+//	This class is attached alongside with .content class
+
+.content-with-columns {
+    display: table;
+    table-layout: fixed;
+    height: 100%;
+    width: 100%;
+    overflow: visible;
+
+    @media screen and (max-width: @screen-md) {
+        display: block;
+        min-height: initial;
+    }
+    //	side-content is organized as table-cells to be able to stretch background
+    //	of the bar and to be able to scroll together (one scrollbar only)
+    .side-content,
+    .main-content {
+        display: table-cell;
+        vertical-align: top;
+
+        @media screen and (max-width: @screen-md) {
+            display: block;
+            min-height: initial;
+
+            .content-lock {
+                position: static;
+                height: auto;
+            }
+        }
+
+        .record-section {
+            @media screen and (max-width: 1694px) {
+                padding: 15px 42px;
+            }
+
+            @media screen and (max-width: 1200px) {
+                .row-section {
+                    .col-md-24,
+                    .col-md-12,
+                    .col-md-8 {
+                        width: 100% !important;
+                    }
+                }
+            }
+
+            @media screen and (max-width: @screen-md) {
+                padding: 15px 18px;
+            }
+        }
+    }
+
+    // Workmates app use this class instead .main-content.
+    // It is necessary to fix WM layout!
+    .main-content-wm {
+        @media screen and (min-width: @screen-md) {
+            display: table-cell;
+            vertical-align: top;
+            position: relative;
+            width: inherit;
+        }
+    }
+
+    .main-content {
+        position: relative;
+    }
+}
+
+// For forms and for screens with horizontal scroll on flyout
+
+.content-fixed-with-scroll {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+
+    @media screen and (max-width: @screen-md) {
+        position: static;
+        top: auto;
+        left: auto;
+        width: 100%;
+        height: auto;
+        min-height: 100%;
+        overflow: auto;
+    }
+}
+
+.content-with-background {
+    position: absolute;
+
+    @media screen and (max-width: @screen-md) {
+        .content-fixed-with-scroll {
+            overflow: visible;
+        }
+    }
+}
+
+//  side-content styling
+
+.side-content {
+    min-height: 100%;
+
+    @media screen and (max-width: @screen-md) {
+        min-height: initial;
+    }
+
+    .section-title {
+        .toolbar-title {
+            padding-left: 20px;
+        }
+    }
+    //  Left side-content
+    &.left {
+        border-right: 1px solid lighten(@gray-lighter, 5%);
+
+        @media screen and (max-width: @screen-md) {
+            border-right: none;
+        }
+    }
+    //  Right side-content
+    &.right {
+        border-left: 1px solid lighten(@gray-lighter, 5%);
+
+        &.workmates-side {
+            border-left: none;
+        }
+
+        @media screen and (max-width: @screen-md) {
+            border-left: none;
+        }
+    }
+    //  When our side-content is on coloured background, or next to widgets
+    &.seamless {
+        &.left {
+            border-right: none;
+        }
+
+        &.right {
+            border-left: none;
+        }
+    }
+    //  Are the icons accented with the color of app
+    &.accented {
+        .icon {
+            color: @brand-primary;
+        }
+    }
+    //  Definition of side-content size
+    &.smaller {
+        width: 205px;
+
+        @media screen and (max-width: @screen-md) {
+            width: 100%;
+        }
+    }
+
+    &.medium {
+        width: 290px;
+
+        @media screen and (max-width: @screen-md) {
+            width: 100%;
+        }
+    }
+
+    &,
+    &.default {
+        width: 305px;
+
+        @media screen and (max-width: @screen-md) {
+            width: 100%;
+        }
+    }
+
+    &.larger {
+        width: 350px;
+
+        @media screen and (max-width: @screen-xl) {
+            width: 326px;
+
+            .form-section {
+                padding: 30px 18px 12px;
+            }
+        }
+
+        @media screen and (max-width: @screen-md) {
+            width: 100%;
+        }
+    }
+
+    &.xxl {
+        width: 420px;
+
+        @media screen and (max-width: @screen-md) {
+            width: 100%;
+        }
+    }
+
+    &.white {
+        background: white;
+    }
+}
+
+//  Main content overall styles
+
+.main-content {
+    min-height: 100%;
+    width: inherit;
+}
+
+//  Sidemenu switcher (shows up only on mobile)
+
+.sidemenu-switcher {
+    display: none;
+    padding: 20px 16px;
+    background-color: @white;
+    border-bottom: 1px solid @gray-light;
+
+    @media screen and (max-width: @screen-md) {
+        display: block;
+    }
+
+    .btn-group {
+        .btn {
+            &,
+            &:link,
+            &:visited {
+                background-color: @white;
+                border: 1px solid @gray-dark;
+                color: @gray-dark;
+            }
+
+            &:hover,
+            &:active {
+                background-color: lighten(@gray-dark, 50%);
+                color: @gray-dark;
+            }
+
+            &.btn-active {
+                background-color: @gray-dark;
+                border: 1px solid @gray-dark;
+                color: @white;
+            }
+        }
+    }
+}
+
+.sidemenu-switcher-list {
+    display: none;
+
+    @media screen and (max-width: 1100px) {
+        display: block;
+    }
+
+    a {
+        color: @white;
+    }
+}
+
+// Context for sidemenu-switcher to turn on-off
+@media screen and (max-width: @screen-lg) {
+
+    .content-with-columns {
+        .social-app {
+            .main-content {
+                display: block;
+
+                &.is-sidemenu-visible {
+                    display: none !important;
+                }
+            }
+        }
+    }
+
+    .social-app {
+        .feed-main-lane {
+            display: none !important;
+
+            &.is-this-visible {
+                display: block !important;
+            }
+        }
+
+        .feed-container-sidemenu {
+            display: none !important;
+
+            &.is-this-visible {
+                display: block !important;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: @screen-md) {
+
+    .side-content {
+        display: none !important;
+
+        &.is-sidemenu-visible {
+            display: block !important;
+
+            + .main-content {
+                display: none !important;
+            }
+        }
+
+        &.entity-details-sidebar {
+            display: block !important;
+            background-color: transparent !important;
+
+            .navbar-entity-details {
+                background-color: @white;
+                border-radius: 4px;
+            }
+        }
+    }
+
+    .main-content {
+        display: block;
+
+        &.is-sidemenu-visible {
+            display: none !important;
+        }
+    }
+
+    .feed-main-lane {
+        display: none !important;
+
+        &.is-this-visible {
+            display: block !important;
+        }
+    }
+
+    // TODO: Need to replace this name to side-content too :)
+
+    .feed-container-sidemenu {
+        display: none !important;
+
+        &.is-this-visible {
+            display: block !important;
+        }
+    }
+}
+
+.submenu-row {
+    .top-navbar {
+        &.navbar-secondary {
+            padding-top: 16px;
+            background-color: @gray-light-soft;
+
+            .navbar-toggle {
+                background-color: @gray-lighter;
+                color: @gray-text;
+            }
+
+            .navbar-nav {
+                li {
+                    a {
+                        &,
+                        &:link,
+                        &:visited {
+                            color: @gray-text;
+
+                            @media screen and (max-width: @screen-md) {
+                                color: @gray-text;
+                            }
+                        }
+
+                        &:hover,
+                        &:active {
+                            color: @gray-text;
+                            border-color: transparent;
+                            border-bottom: 1px solid transparent;
+
+                            @media screen and (max-width: @screen-md) {
+                                border-bottom: none;
+                                color: @gray-text;
+                                background-color: fade(transparent, 20%);
+                            }
+                        }
+
+                        &:focus {
+                            color: @gray-text;
+                            border-color: @gray-text;
+                            border-bottom: 1px solid transparent;
+
+                            @media screen and (max-width: @screen-md) {
+                                border-bottom: none;
+                            }
+                        }
+                    }
+
+                    &.active {
+                        a {
+                            &,
+                            &:link,
+                            &:visited,
+                            &:hover,
+                            &:active {
+                                color: @gray-text;
+                                border-color: transparent;
+
+                                @media screen and (max-width: @screen-md) {
+                                    color: @gray-text;
+                                    background-color: transparent;
+                                }
+                            }
+
+                            &:focus {
+                                color: @gray-text;
+                                border-color: transparent;
+
+                                @media screen and (max-width: @screen-md) {
+                                    color: @gray-text;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.fixed-height-fixer {
+    height: 100%;
+}

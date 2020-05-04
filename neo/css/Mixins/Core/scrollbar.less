@@ -1,0 +1,27 @@
+.webkit-scrollbar(@scrollbar-width, @scrollbar-color, @scrollbar-border-transparent) {
+	&::-webkit-scrollbar {
+		width: @scrollbar-width;
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-button {
+		display: none;
+	}
+
+	&::-webkit-scrollbar-track-piece {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		border-radius: (@scrollbar-width / 2);
+		border-width: @scrollbar-border-transparent;
+		border-style: solid;
+		border-color: rgba(0, 0, 0, 0);
+		background-clip: padding-box;
+		background-color: @scrollbar-color;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+}

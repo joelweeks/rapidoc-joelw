@@ -1,0 +1,478 @@
+// DOCS SECTION
+
+.documentation {
+
+	#top {
+		height: 20px;
+		display: block;
+	}
+
+	.docs-section {
+		padding: 0 48px;
+	}
+
+	h1.hrc-docs-title {
+		color: #EE8F21;
+		margin-top: 60px;
+		border-bottom: 1px solid #F0F8F8;
+		margin-bottom: 36px;
+		padding-bottom: 24px;
+	}
+
+	h1.hrc-docs-title:first-child {
+		margin-top: 0;
+	}
+
+	h2.hrc-docs-title {
+		margin-top: 42px;
+	}
+
+	h3.hrc-docs-title {
+		margin-top: 34px;
+	}
+
+	.hrc-callout-warning {
+		padding-top: 20px;
+
+		h4 {
+			margin-bottom: 0;
+		}
+	}
+
+	#pattern-library-navigation {
+		.home {
+			a {
+				width: 24px;
+				min-height: 35px;
+				.icon {
+					position: absolute
+				}
+			}
+		}
+	}
+
+	.sidebar-test {
+		position: relative;
+		height: 650px;
+		width: 56px;
+
+		.sidebar {
+			position: absolute;
+
+			@media (max-width: @screen-sm ) {
+				&,
+				&.icons-only,
+				&.with-labels {
+					left: 0;
+					position: absolute;
+					text-align: left;
+				}
+
+				.symbol-label {
+					position: relative;
+					width: auto;
+					height: auto;
+					margin: auto;
+					overflow: visible;
+					clip: auto;
+					border: 0;
+				}
+			}
+		}
+	}
+
+	.hrc-color-row {
+		font-size: 11px;
+
+		& > div {
+			padding: 3px;
+			text-align: center;
+			width: 72px !important;
+			border: 1px solid #eaeaea;
+			margin-left: 24px;
+			margin-bottom: 24px;
+		}
+
+		span {
+			display: block;
+			height: 72px;
+		}
+	}
+
+	.hrc-docs-variable {
+		.text-muted();
+	}
+
+	.visible-grid .row {
+		background-color: fade(#48C3D4, 20%);
+	}
+
+	.visible-grid [class^="col-md"] {
+		text-align: center;
+		color: #fff;
+		padding: 12px;
+	}
+
+	.visible-grid [class^="col-md"] p {
+		font-size: 10px;
+		line-height: 48px;
+		padding-bottom: 0;
+		margin-bottom: 0;
+		background-color: fade(#48C3D4, 50%);
+		font-weight: @font-weight-bold;
+	}
+
+	.visible-grid.no-padding [class^="col-md"] {
+		padding: 0 1px;
+	}
+
+	.visible-grid.no-padding .row {
+		padding: 12px;
+	}
+
+	.hrc-docs-display.sidebar-test {
+		position: relative;
+		height: 430px;
+	}
+
+	.hrc-docs-display .sidebar {
+		position: absolute;
+	}
+
+	// Icons grid
+
+	.hrc-docs-icon-cell {
+		border: 1px solid @gray-lighter;
+		padding: 0;
+		width: 140px;
+		height: 140px;
+		position: relative;
+		margin-left: -1px;
+		margin-top: -1px;
+	}
+
+	.hrc-docs-icon-view {
+		line-height: 130px;
+		height: 130px;
+		vertical-align: middle;
+	}
+
+	.hrc-docs-icon-title {
+		position: absolute;
+		bottom: 10px;
+		left: 0;
+		text-align: center;
+		width: 100%;
+		line-height: 16px;
+	}
+
+	.hrc-docs-example {
+		border: 1px solid #D3D3D1;
+		padding: 10px 15px;
+		margin: 10px -5px 0;
+		background-color: #fff;
+		display: table;
+		width: 100%;
+	}
+
+	.hrc-docs-code {
+		border: 1px solid #D3D3D1;
+		background-color: #F0F8F8 !important;
+		border-radius: 0;
+		padding: 15px;
+		margin: -1px -5px 0;
+
+		//temporary solution
+		display: none;
+	}
+
+	pre,
+	pre code {
+		margin: 0;
+		padding: 0;
+		border: none;
+		border-radius: 0;
+		background-color: transparent;
+	}
+
+	pre code {
+		margin: 0 0;
+	}
+
+	pre {
+		margin-bottom: 36px;
+	}
+
+
+	.ngv-grid-container {
+		margin-top: 80px;
+	}
+
+	.ngv-grid-container .grid-toolbar-container {
+		left: 0;
+	}
+
+	//In our products, ngv-slide is not inserted in .ng-flyout. This is for demo purposes of PL.
+	.ngv-flyout > div.ngv-slide-overlay {
+		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.2);
+		z-index: 999;
+		left: 0;
+	}
+
+	.ngv-flyout > div.ngv-slide {
+		width: 40%;
+		z-index: 1000;
+
+		&.show {
+			left: 60%;
+
+			@media (max-width: @minWidthMedium) {
+				left: 40%;
+			}
+
+			@media (max-width: @minWidthSmall) {
+				left: 0;
+			}
+		}
+
+		@media (max-width: @screen-md) {
+			width: 60%;
+		}
+
+		@media (max-width: @screen-sm) {
+			width: 100%;
+		}
+	}
+
+	.bullet {
+		vertical-align: middle;
+		text-align: center;
+	}
+
+	pre {
+		height: auto;
+		overflow: auto;
+	}
+
+	.nav-header {
+		display: block;
+		padding: 3px 15px;
+		font-size: 14px;
+		font-weight: @font-weight-bold;
+		line-height: 1.5;
+		color: #999999;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	}
+
+	.nav li + .nav-header {
+		margin-top: 9px;
+	}
+
+	.nav-list {
+		padding-left: 15px;
+		padding-right: 15px;
+		margin-bottom: 0;
+	}
+
+	.nav-list > li > a,
+	.nav-list .nav-header {
+		margin-left: -15px;
+		margin-right: -15px;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	}
+
+	.nav-list > li > a {
+		padding: 3px 15px;
+	}
+
+	.nav-list > .active > a,
+	.nav-list > .active > a:hover,
+	.nav-list > .active > a:focus {
+		color: #ffffff;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+		background-color: #428bca;
+	}
+
+	.nav-list [class^="icon-"],
+	.nav-list [class*=" icon-"] {
+		margin-right: 2px;
+	}
+
+	.nav-list .divider {
+		height: 1px;
+		margin: 9px 0;
+		overflow: hidden;
+		background-color: #e5e5e5;
+	}
+
+	.breadcrumb {
+		font-size: 12px;
+	}
+
+	.nav-list .nav-header {
+		margin-right: -20px;
+		margin-left: -20px;
+		text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	}
+
+	// basic table styles
+
+	table {
+		border: 0;
+		text-align: center;
+		border-collapse: collapse;
+		caption-side: top;
+		table-layout: fixed;
+	}
+
+	th, td {
+		text-align: center;
+		vertical-align: top;
+		padding: 10px;
+		border: 0;
+		border-style: none !important;
+			
+	}
+
+	th {
+		background: #eee;
+	}
+
+	caption {
+		font-weight: @font-weight-bold;
+	}
+
+	#no_ruling {
+		border-style: none !important;
+	}
+}
+
+.logo {
+	width: 40px;
+	height: 32px;
+	margin: 8px;
+	background-image: url('Assets/icons/hrcloud.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	text-indent: -9999px;
+}
+
+.logo-neogov {
+	width: 118px;
+	height: 20px;
+	margin: 13px 10px;
+	background-image: url('Assets/icons/neogov.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	text-indent: -9999px;
+}
+
+.page-root-text {
+	padding: 11px;
+}
+
+.header-wrapper {
+	.top-header {
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center center;
+	}
+
+	.top-navbar {
+		border-bottom: 1px solid transparent;
+		color: @white;
+
+		.navbar-nav {
+			li {
+				a {
+					color: @white;
+					text-underline: none;
+
+					&:hover,
+					&:active {
+						color: rgba(255,255,255, 0.5);
+					}
+				}
+			}
+		}
+	}
+}
+
+&.corehr-background {
+	.top-header {
+		background-image: url('Assets/backgrounds/corehr.png');
+		background-color: @extra-corehr;
+	}
+
+	.top-navbar {
+		background-color: darken(@extra-corehr, 5%);
+	}
+}
+
+&.dark-background {
+	.top-header {
+		background-image: url('Assets/backgrounds/dark.png');
+		background-color: #385263;
+	}
+
+	.top-navbar {
+		background-color: darken(#385263, 5%);
+	}
+}
+
+&.global-background {
+	.top-header {
+		background-image: url('Assets/backgrounds/neogovheader.png');
+		background-color: #3d6077;
+	}
+
+	.top-navbar {
+		background-color: darken(#3d6077, 5%);
+	}
+}
+
+&.insight-background {
+	.top-header {
+		background-image: url('Assets/backgrounds/insight.png');
+		background-color: #00818f;
+	}
+
+	.top-navbar {
+		background-color: darken(#00818f, 5%);
+	}
+}
+
+&.light-background {
+	.top-header {
+		background-image: url('Assets/backgrounds/light.png');
+		background-color: #4d6880;
+	}
+
+	.top-navbar {
+		background-color: darken(#4d6880, 5%);
+	}
+}
+
+&.onboard-background {
+	.top-header {
+		background-image: url('Assets/backgrounds/onboard.png');
+		background-color: #74618d;
+	}
+
+	.top-navbar {
+		background-color: darken(#74618d, 5%);
+	}
+}
+
+&.perform-background {
+	.top-header {
+		background-image: url('Assets/backgrounds/perform.png');
+		background-color: #c95e00;
+	}
+
+	.top-navbar {
+		background-color: darken(#c95e00, 5%);
+	}
+}
