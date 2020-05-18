@@ -5,7 +5,7 @@ import Swagger from 'swagger-client';
 import marked from 'marked';
 import { invalidCharsRegEx } from '@/utils/common-utils';
 
-export default async function ProcessSpec(specUrl, sortTags = false, sortEndpointsBy, attrApiKey = '', attrApiKeyLocation = '', attrApiKeyValue = '', serverUrl = '') {
+export default async function ProcessSpec(specUrl, sortTags = false, sortEndpointsBy = '', attrApiKey = '', attrApiKeyLocation = '', attrApiKeyValue = '', serverUrl = '') {
   let jsonParsedSpec;
   let convertedSpec;
   // let resolvedRefSpec;
@@ -120,7 +120,7 @@ export default async function ProcessSpec(specUrl, sortTags = false, sortEndpoin
   let servers = [];
   if (jsonParsedSpec.servers && Array.isArray(jsonParsedSpec.servers)) {
     jsonParsedSpec.servers.forEach((v) => {
-      let computedUrl = v.url.trim().toLowerCase();
+      let computedUrl = v.url.trim();
       if (!(computedUrl.startsWith('http') || computedUrl.startsWith('//') || computedUrl.startsWith('{'))) {
         if (window.location.origin.startsWith('http')) {
           v.url = window.location.origin + v.url;
